@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ped84lhv167"]
+
+[ext_resource type="Texture2D" uid="uid://ccrfwthnctmet" path="res://Assets/Graphics/Placeholders/icon.svg" id="1_ipvdf"]
+[ext_resource type="Script" path="res://Objects/Player/PlayerMovement.cs" id="1_yi4wh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi0pr"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_yi4wh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_ipvdf")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oi0pr")
+
+[node name="Camera2D" type="Camera2D" parent="."]

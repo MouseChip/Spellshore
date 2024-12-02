@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccrfwthnctmet"
-path="res://.godot/imported/icon.svg-26f1afd9a4603c81850aabe2026eab7d.ctex"
+uid="uid://cflo73tnsfb0m"
+path="res://.godot/imported/assets.png-65c53f59410e3a2453ba43de7c17b127.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Graphics/Placeholders/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-26f1afd9a4603c81850aabe2026eab7d.ctex"]
+source_file="res://Assets/Graphics/Placeholders/SummerPlains/assets.png"
+dest_files=["res://.godot/imported/assets.png-65c53f59410e3a2453ba43de7c17b127.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
