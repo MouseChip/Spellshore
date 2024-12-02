@@ -15,5 +15,3 @@ texture = ExtResource("1_ipvdf")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oi0pr")
-
-[node name="Camera2D" type="Camera2D" parent="."]
