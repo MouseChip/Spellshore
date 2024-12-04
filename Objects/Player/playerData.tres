@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c8mpucid167aq"]
+
+[ext_resource type="Script" path="res://Objects/Player/PlayerData.cs" id="1_su0s7"]
+
+[resource]
+script = ExtResource("1_su0s7")
+isFishing = false
