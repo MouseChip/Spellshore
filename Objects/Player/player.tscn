@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ped84lhv167"]
+[gd_scene load_steps=9 format=3 uid="uid://ped84lhv167"]
 
 [ext_resource type="Texture2D" uid="uid://ccrfwthnctmet" path="res://Assets/Graphics/Placeholders/icon.svg" id="1_ipvdf"]
 [ext_resource type="Script" path="res://Objects/Player/PlayerMovement.cs" id="1_yi4wh"]
+[ext_resource type="PackedScene" uid="uid://cf1i7rl1lcuul" path="res://Objects/FishingRod/fishingRod.tscn" id="3_dre5g"]
+[ext_resource type="Script" path="res://Objects/Player/VisualiseCast.cs" id="4_o05gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi0pr"]
 size = Vector2(32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btbfq"]
+bg_color = Color(0.982343, 0.982342, 0.982342, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u23db"]
+bg_color = Color(0.269027, 0.698483, 0.416805, 1)
+
+[sub_resource type="Theme" id="Theme_0cdc3"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_btbfq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_u23db")
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
@@ -16,3 +28,29 @@ texture = ExtResource("1_ipvdf")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oi0pr")
+
+[node name="FishingRod" parent="." instance=ExtResource("3_dre5g")]
+visible = false
+position = Vector2(16, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -29.0
+offset_top = -30.0
+offset_right = 31.0
+offset_bottom = 30.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 45.0
+offset_right = 36.0
+offset_bottom = 50.0
+rotation = -1.5708
+theme = SubResource("Theme_0cdc3")
+min_value = -1.0
+max_value = 1.0
+value = -1.0
+show_percentage = false
+script = ExtResource("4_o05gt")

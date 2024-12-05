@@ -1,12 +1,9 @@
 using Godot;
 using System;
 
-public partial class Fishing : TileMapLayer
+public partial class ToggleCast : TileMapLayer
 {
 	public PlayerData playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
-
-	private float _castLevel = -1;
-	private float _castTimer = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -16,10 +13,6 @@ public partial class Fishing : TileMapLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (playerData.isCasting) {
-			_castTimer++;
-			_castLevel = Mathf.Sin(_castTimer);
-		}
 	}
 
     public override void _UnhandledInput(InputEvent @event)
@@ -47,15 +40,9 @@ public partial class Fishing : TileMapLayer
 				} else if (mouseButton.IsReleased()) { // If the left mouse button is released...
 					if (playerData.isCasting) {
 						playerData.isCasting = false; // End the cast
-						_castLevel = 0; // Reset the cast level
-						_castTimer = 0;
 					}
 				}
 			}
 		}
     }
-
-	private static float FloatMap(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
-		return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
-	}
 }
