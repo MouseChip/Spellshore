@@ -3,6 +3,8 @@ using System;
 
 public partial class ToggleCast : TileMapLayer
 {
+	public delegate void EndCastEventHandler();
+
 	public PlayerData playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
 
 	// Called when the node enters the scene tree for the first time.
@@ -37,10 +39,6 @@ public partial class ToggleCast : TileMapLayer
 					}
 
 					#endregion
-				} else if (mouseButton.IsReleased()) { // If the left mouse button is released...
-					if (playerData.isCasting) {
-						playerData.isCasting = false; // End the cast
-					}
 				}
 			}
 		}

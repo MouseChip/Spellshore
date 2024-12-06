@@ -21,7 +21,7 @@ public partial class VisualiseCast : ProgressBar
 			Visible = true; // Display the progress bar
 
 			Value = _fishingRod.castLevel; // Set the value of the bar to the cast level
-			_progressStyle.BgColor = Colors.Red.Lerp(Colors.Green, (float)(Value / MaxValue)); // Make the colour of the bar dependent on the value
+			_progressStyle.BgColor = Colors.Orange.Lerp(Colors.Green, (float)(Value / MaxValue)); // Make the colour of the bar dependent on the value
 		} else {
 			Visible = false;
 		}

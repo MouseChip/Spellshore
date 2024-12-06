@@ -20,6 +20,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_u23db")
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
+collision_mask = 0
 script = ExtResource("1_yi4wh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -30,7 +31,6 @@ texture = ExtResource("1_ipvdf")
 shape = SubResource("RectangleShape2D_oi0pr")
 
 [node name="FishingRod" parent="." instance=ExtResource("3_dre5g")]
-visible = false
 position = Vector2(16, 0)
 
 [node name="Control" type="Control" parent="."]
@@ -41,7 +41,7 @@ offset_top = -30.0
 offset_right = 31.0
 offset_bottom = 30.0
 
-[node name="ProgressBar" type="ProgressBar" parent="Control"]
+[node name="CastPower" type="ProgressBar" parent="Control"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 45.0
