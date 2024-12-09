@@ -19,6 +19,8 @@ public partial class PlayerMovement : CharacterBody2D
 			else spdMagnifier = 1;
 
 			Velocity = inputDir * playerSpeed * spdMagnifier;
+		} else {
+			Velocity = Vector2.Zero;
 		}
 	}
 	public override void _PhysicsProcess(double delta)

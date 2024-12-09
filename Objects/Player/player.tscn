@@ -20,7 +20,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_u23db")
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
-collision_mask = 0
+collision_mask = 3
 script = ExtResource("1_yi4wh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
