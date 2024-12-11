@@ -10,10 +10,12 @@ radius = 7.0
 [node name="FishingRod" type="Node2D"]
 script = ExtResource("1_g34ul")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="RodSprite" type="Sprite2D" parent="."]
 modulate = Color(0.72, 0.50472, 0.1584, 1)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_w17q3")
+
+[node name="HookTimer" type="Timer" parent="."]
 
 [node name="Bobber" type="RigidBody2D" parent="."]
 position = Vector2(15, -15)
@@ -23,10 +25,10 @@ mass = 0.03
 gravity_scale = 0.0
 script = ExtResource("3_f0wwo")
 
-[node name="Sprite2D" type="Sprite2D" parent="Bobber"]
+[node name="BobberSprite" type="Sprite2D" parent="Bobber"]
 modulate = Color(1, 0.32, 0.32, 1)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("1_w17q3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bobber"]
+[node name="BobberShape" type="CollisionShape2D" parent="Bobber"]
 shape = SubResource("CircleShape2D_ubqsh")

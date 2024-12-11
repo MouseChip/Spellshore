@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://df10rh35n8gaq"]
+
+[ext_resource type="Script" path="res://Scenes/SceneData/TestSceneData.cs" id="1_htvc4"]
+
+[resource]
+script = ExtResource("1_htvc4")
+potentialFish = [0]
+weather = "sunny"

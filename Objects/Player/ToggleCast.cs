@@ -40,9 +40,6 @@ public partial class ToggleCast : TileMapLayer
 						}
 
 						#endregion
-					} else {
-						_playerData.isCasting = false;
-						_playerData.isFishing = false;
 					}
 				}
 			}

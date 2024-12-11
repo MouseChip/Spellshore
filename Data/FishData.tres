@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ch42dps7gdqx2"]
+
+[ext_resource type="Script" path="res://Data/FishData.cs" id="1_qapan"]
+
+[resource]
+script = ExtResource("1_qapan")

@@ -25,6 +25,12 @@ window/size/viewport_height=1080
 
 project/assembly_name="Spellshore"
 
+[global_group]
+
+waterLayer="Group of all water tile map layers"
+freshwater="Group specifically for freshwater tile map layers"
+saltwater="Group specifically for saltwater tile map layers."
+
 [input]
 
 playerLeft={

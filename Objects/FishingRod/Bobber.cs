@@ -3,6 +3,11 @@ using System;
 
 public partial class Bobber : RigidBody2D
 {
+    [Signal] public delegate void BobberWaterEventHandler();
+    [Signal] public delegate void ReelInEventHandler();
+
+    public String bobberSource;
+
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
 	private FishingRod _fishingRod;
 	public Vector2 _bobberOrigin;
@@ -66,14 +71,20 @@ public partial class Bobber : RigidBody2D
                 var query = new PhysicsPointQueryParameters2D(); // Create a new raycast query that is to be set to a single point
                 query.Position = GlobalPosition; // Set the position of the query to the bobber's position
                 var results = spaceState.IntersectPoint(query); // Perform the raycast query and store any collisions in the form of an array of dictionaries (representing each collision object)
-
                 if (results.Count > 0) { // If there was at least one collision...
                     for (int i = 0; i < results.Count; i++) { // For each colliding body...
-                        if (results[i]["collider"].ToString() != GetParent().GetParent().GetParent().GetNode("TileMapLayers/WaterLayer").ToString()) { // If the colliding body is not the water layer (found by going through the fishing rod, the player, the current scene, and then getting the water layer as a child of TileMapLayers as a child of the current scene)...
+                        if (!GetTree().GetNodesInGroup("waterLayer").Contains((Node)results[i]["collider"])) { // If the colliding body is not the water layer (found by going through the fishing rod, the player, the current scene, and then getting the water layer as a child of TileMapLayers as a child of the current scene)...
                             _playerData.isFishing = false;
                             _checkWater = false;
                             return;
                         } else {
+                            var colliderNode = (Node)results[i]["collider"];
+                            var colliderGroups = colliderNode.GetGroups();
+                            for (int j = 0; j < colliderGroups.Count; j++) {
+                                if (colliderGroups[j] == "saltwater" || colliderGroups[j] == "freshwater") bobberSource = colliderGroups[j]; // Store the type of water source
+                            }
+
+                            EmitSignal(SignalName.BobberWater);
                             _checkWater = false;
                         }
                     }
@@ -88,9 +99,16 @@ public partial class Bobber : RigidBody2D
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (@event is InputEventMouseButton mouseEvent) {
-            if (mouseEvent.ButtonIndex == MouseButton.Left) {
-                if (mouseEvent.IsReleased()) {
+        if (@event is InputEventMouseButton mouseButton) {
+            if (mouseButton.ButtonIndex == MouseButton.Left) {
+                if (mouseButton.IsPressed()) { // If the left mouse buttons is clicked...
+					if (_playerData.isFishing) { // If the player was fishing...
+                        _playerData.isCasting = false;
+                        _playerData.isFishing = false; // End the fishing action
+                        EmitSignal(SignalName.ReelIn); // Signal a reel in
+                    }
+                }
+                if (mouseButton.IsReleased()) {
 					if (_playerData.isCasting) {
 						_playerData.isCasting = false;
 						_playerData.isFishing = true;
