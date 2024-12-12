@@ -6,11 +6,11 @@ public partial class Bobber : RigidBody2D
     [Signal] public delegate void BobberWaterEventHandler();
     [Signal] public delegate void ReelInEventHandler();
 
-    public String bobberSource;
+	public Vector2 BobberOrigin;
+    public String BobberSource;
 
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
 	private FishingRod _fishingRod;
-	public Vector2 _bobberOrigin;
 	private Vector2 _launchDirection = Vector2.Zero;
     private float _launchHeight = 50f; // Default launch height for arc
     private float _northLaunchHeight = 1.5f; // Adjustment for the launch height when casting north
@@ -24,15 +24,15 @@ public partial class Bobber : RigidBody2D
     public override void _Ready()
     {
 		_fishingRod = GetParent<FishingRod>();
-        _bobberOrigin = Position;
+        BobberOrigin = Position;
     }
 
     public void LaunchBobber()
     {
-		_launchDirection = _playerData.playerDir.Normalized(); // Normalise the player direction to ensure that the bobber moves in the correct direction
+		_launchDirection = _playerData.PlayerDir.Normalized(); // Normalise the player direction to ensure that the bobber moves in the correct direction
         _distTravelled = 0f;
-		_bobberDist = MapFloat(_fishingRod.castLevel, -1, 1, 0, _fishingRod.maxPower); // Calculate the desired distance by mapping the cast power
-        _launchHeight = MapFloat(_fishingRod.castLevel, -1, 1, 0, 50);
+		_bobberDist = MapFloat(_fishingRod.CastLevel, -1, 1, 0, _fishingRod.MaxPower); // Calculate the desired distance by mapping the cast power
+        _launchHeight = MapFloat(_fishingRod.CastLevel, -1, 1, 0, 50);
         
         _checkWater = true;
     }
@@ -43,7 +43,7 @@ public partial class Bobber : RigidBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_distTravelled < _bobberDist && _playerData.isFishing) { // If the elapsed time is less than the total travel duration...
+        if (_distTravelled < _bobberDist && _playerData.IsFishing) { // If the elapsed time is less than the total travel duration...
             float dirMoveIncrement = _bobberSpeed * (float)delta; // This will increase the position by the speed relative to the framerate
             _distTravelled += dirMoveIncrement; // Increase the distance travelled so far by the above amount
             Vector2 dirMovement = _launchDirection * _distTravelled; // Set the movement along the particular direction to the distance travelled (so that this will increase as time passes)
@@ -63,36 +63,23 @@ public partial class Bobber : RigidBody2D
                 verticalOffset *= _southLaunchHeight; // Increase the amplitude of the sine wave such that the bobber will overshoot its cast at the start
             }
         
-            Position = _bobberOrigin + dirMovement + new Vector2(0, verticalOffset); // Update the bobber's position by adding movement along the constant axis as well as the arc
+            Position = BobberOrigin + dirMovement + new Vector2(0, verticalOffset); // Update the bobber's position by adding movement along the constant axis as well as the arc
 
         } else if (_distTravelled >= _bobberDist) { // Otherwise, if the bobber has finished travelling...
-            if (_checkWater && _playerData.isFishing) {
-                var spaceState = GetWorld2D().DirectSpaceState; // Get a reference to the worldspace
-                var query = new PhysicsPointQueryParameters2D(); // Create a new raycast query that is to be set to a single point
-                query.Position = GlobalPosition; // Set the position of the query to the bobber's position
-                var results = spaceState.IntersectPoint(query); // Perform the raycast query and store any collisions in the form of an array of dictionaries (representing each collision object)
-                if (results.Count > 0) { // If there was at least one collision...
-                    for (int i = 0; i < results.Count; i++) { // For each colliding body...
-                        if (!GetTree().GetNodesInGroup("waterLayer").Contains((Node)results[i]["collider"])) { // If the colliding body is not the water layer (found by going through the fishing rod, the player, the current scene, and then getting the water layer as a child of TileMapLayers as a child of the current scene)...
-                            _playerData.isFishing = false;
-                            _checkWater = false;
-                            return;
-                        } else {
-                            var colliderNode = (Node)results[i]["collider"];
-                            var colliderGroups = colliderNode.GetGroups();
-                            for (int j = 0; j < colliderGroups.Count; j++) {
-                                if (colliderGroups[j] == "saltwater" || colliderGroups[j] == "freshwater") bobberSource = colliderGroups[j]; // Store the type of water source
-                            }
+            if (_checkWater && _playerData.IsFishing) {
+                bool inWater = CheckWater(); // Check if the bobber is in water
 
-                            EmitSignal(SignalName.BobberWater);
-                            _checkWater = false;
-                        }
-                    }
+                if (!inWater) {
+                    _playerData.IsFishing = false;
+                } else {
+                    EmitSignal(SignalName.BobberWater);
                 }
+
+                _checkWater = false;
             }
         }
 
-        if (!_playerData.isFishing) {  // If the player is not fishing...
+        if (!_playerData.IsFishing) {  // If the player is not fishing...
 			Position = new Vector2(15, -15); // Set the bobber at the desired position
 		}
     }
@@ -102,16 +89,34 @@ public partial class Bobber : RigidBody2D
         if (@event is InputEventMouseButton mouseButton) {
             if (mouseButton.ButtonIndex == MouseButton.Left) {
                 if (mouseButton.IsPressed()) { // If the left mouse buttons is clicked...
-					if (_playerData.isFishing) { // If the player was fishing...
-                        _playerData.isCasting = false;
-                        _playerData.isFishing = false; // End the fishing action
+					if (_playerData.IsFishing) { // If the player was fishing...
+                        _playerData.IsCasting = false;
+                        _playerData.IsFishing = false; // End the fishing action
                         EmitSignal(SignalName.ReelIn); // Signal a reel in
+                    } else { // If the player isn't fishing...
+                        #region Raycast for water collision
+
+						var spaceState = GetWorld2D().DirectSpaceState; // Get a reference to the worldspace
+						var query = new PhysicsPointQueryParameters2D(); // Create a new raycast query that is to be set to a single point
+						query.Position = GetGlobalMousePosition(); // Set the position of the query to the global mouse position
+						var results = spaceState.IntersectPoint(query); // Perform the raycast query and store any collisions in the form of an array of dictionaries (representing each collision object)
+
+						if (results.Count > 0) { // If there was at least one collision...
+							for (int i = 0; i < results.Count; i++) { // For each colliding body...
+								if (!GetTree().GetNodesInGroup("waterLayer").Contains((Node)results[i]["collider"])) { // If that colliding body is not a water layer)...
+									return; // Return so that none of the fishing occurs
+								}
+								_playerData.IsCasting = true; // Set the casting state
+							}
+						}
+
+						#endregion
                     }
                 }
                 if (mouseButton.IsReleased()) {
-					if (_playerData.isCasting) {
-						_playerData.isCasting = false;
-						_playerData.isFishing = true;
+					if (_playerData.IsCasting) {
+						_playerData.IsCasting = false;
+						_playerData.IsFishing = true;
 						LaunchBobber(); // If the mouse is released, launched the bobber
 					}
                 }
@@ -122,4 +127,26 @@ public partial class Bobber : RigidBody2D
 	public static float MapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
 		return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
 	}
+
+    public bool CheckWater() {
+        var spaceState = GetWorld2D().DirectSpaceState; // Get a reference to the worldspace
+        var query = new PhysicsPointQueryParameters2D(); // Create a new raycast query that is to be set to a single point
+        query.Position = GlobalPosition; // Set the position of the query to the bobber's position
+        var results = spaceState.IntersectPoint(query); // Perform the raycast query and store any collisions in the form of an array of dictionaries (representing each collision object)
+        if (results.Count > 0) { // If there was at least one collision...
+            for (int i = 0; i < results.Count; i++) { // For each colliding body...
+                if (!GetTree().GetNodesInGroup("waterLayer").Contains((Node)results[i]["collider"])) { // If the colliding body is not the water layer...
+                    return false; // Return false (the bobber is not in water, these is something above it)
+                } else {
+                    var colliderNode = (Node)results[i]["collider"];
+                    var colliderGroups = colliderNode.GetGroups();
+                    for (int j = 0; j < colliderGroups.Count; j++) {
+                        if (colliderGroups[j] == "saltwater" || colliderGroups[j] == "freshwater") BobberSource = colliderGroups[j]; // Store the type of water source
+                    }
+                }
+            }
+        }
+        
+        return true; // The bobber is in water (it is only colliding with water)
+    }
 }

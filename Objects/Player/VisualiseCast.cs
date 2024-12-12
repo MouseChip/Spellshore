@@ -17,10 +17,10 @@ public partial class VisualiseCast : ProgressBar
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_playerData.isCasting) { // If the player is casting the rod...
+		if (_playerData.IsCasting) { // If the player is casting the rod...
 			Visible = true; // Display the progress bar
 
-			Value = _fishingRod.castLevel; // Set the value of the bar to the cast level
+			Value = _fishingRod.CastLevel; // Set the value of the bar to the cast level
 			_progressStyle.BgColor = Colors.Orange.Lerp(Colors.Green, (float)(Value / MaxValue)); // Make the colour of the bar dependent on the value
 		} else {
 			Visible = false;

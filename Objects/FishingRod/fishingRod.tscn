@@ -17,6 +17,8 @@ texture = ExtResource("1_w17q3")
 
 [node name="HookTimer" type="Timer" parent="."]
 
+[node name="ReelTimer" type="Timer" parent="."]
+
 [node name="Bobber" type="RigidBody2D" parent="."]
 position = Vector2(15, -15)
 collision_layer = 0

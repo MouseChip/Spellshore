@@ -3,22 +3,22 @@ using System;
 
 public partial class PlayerMovement : CharacterBody2D
 {
-	[Export] public int playerSpeed = 100;
+	[Export] public int PlayerSpeed = 100;
 	
-	public int spdMagnifier = 1;
+	public int SpdMagnifier = 1;
 	
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
 
 	public void GetInput()
 	{
-		if (!_playerData.isCasting && !_playerData.isFishing) { // If the player isn't casting or fishing...
+		if (!_playerData.IsCasting && !_playerData.IsFishing) { // If the player isn't casting or fishing...
 			Vector2 inputDir = Input.GetVector("playerLeft","playerRight","playerUp","playerDown");
-			if (inputDir != Vector2.Zero) _playerData.playerDir = inputDir; // If there is input, log the direction
+			if (inputDir != Vector2.Zero) _playerData.PlayerDir = inputDir; // If there is input, log the direction
 			
-			if (Input.IsActionPressed("playerSprint")) spdMagnifier = 2;
-			else spdMagnifier = 1;
+			if (Input.IsActionPressed("playerSprint")) SpdMagnifier = 2;
+			else SpdMagnifier = 1;
 
-			Velocity = inputDir * playerSpeed * spdMagnifier;
+			Velocity = inputDir * PlayerSpeed * SpdMagnifier;
 		} else {
 			Velocity = Vector2.Zero;
 		}

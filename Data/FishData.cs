@@ -3,7 +3,7 @@ using System;
 
 public partial class FishData : Resource
 {
-	public Godot.Collections.Dictionary fishDict = new Godot.Collections.Dictionary {
+	public Godot.Collections.Dictionary FishDict = new Godot.Collections.Dictionary {
 		{0, new Godot.Collections.Dictionary{
 			{"name", "testFish1"},
 			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
@@ -14,6 +14,32 @@ public partial class FishData : Resource
 			{"difficulty", 50},
 			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
 			{"bait", new Godot.Collections.Array{"all"}},
+			{"caught", 0},
+		}},
+
+		{1, new Godot.Collections.Dictionary{
+			{"name", "testFish2"},
+			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
+			{"source", new Godot.Collections.Array{"saltwater"}},
+			{"climate", new Godot.Collections.Array{"sunny", "cloudy"}},
+			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
+			{"rarity", 20},
+			{"difficulty", 10},
+			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
+			{"bait", new Godot.Collections.Array{"worm", "squid"}},
+			{"caught", 0},
+		}},
+
+		{2, new Godot.Collections.Dictionary{
+			{"name", "testFish3"},
+			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
+			{"source", new Godot.Collections.Array{"all"}},
+			{"climate", new Godot.Collections.Array{"sunny"}},
+			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
+			{"rarity", 70},
+			{"difficulty", 80},
+			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
+			{"bait", new Godot.Collections.Array{"worm"}},
 			{"caught", 0},
 		}}
 	};

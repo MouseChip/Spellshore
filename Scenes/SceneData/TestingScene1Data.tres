@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_htvc4")
-potentialFish = [0]
-weather = "sunny"
+PotentialFish = [0, 1, 2]
+Weather = "sunny"

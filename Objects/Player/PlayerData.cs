@@ -3,7 +3,7 @@ using System;
 
 public partial class PlayerData : Resource
 {
-    public Vector2 playerDir;
-    public bool isCasting = false;
-    public bool isFishing = false;
+    public Vector2 PlayerDir;
+    public bool IsCasting = false;
+    public bool IsFishing = false;
 }
