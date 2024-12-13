@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c02061dqufq43"]
-
-[ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/testing_scene_1.tscn" id="1_sasa4"]
-
-[node name="main" type="Node"]
-
-[node name="TestingScene1" parent="." instance=ExtResource("1_sasa4")]

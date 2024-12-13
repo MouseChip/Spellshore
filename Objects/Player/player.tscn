@@ -31,6 +31,7 @@ texture = ExtResource("1_ipvdf")
 shape = SubResource("RectangleShape2D_oi0pr")
 
 [node name="FishingRod" parent="." instance=ExtResource("3_dre5g")]
+visible = false
 position = Vector2(16, 0)
 
 [node name="Control" type="Control" parent="."]

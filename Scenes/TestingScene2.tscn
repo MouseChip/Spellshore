@@ -1,0 +1,139 @@
+[gd_scene load_steps=13 format=3 uid="uid://cf75ampj4a6bs"]
+
+[ext_resource type="PackedScene" uid="uid://ped84lhv167" path="res://Objects/Player/player.tscn" id="1_mba6o"]
+[ext_resource type="Texture2D" uid="uid://ccrfwthnctmet" path="res://Assets/Graphics/Placeholders/icon.svg" id="2_0lw8p"]
+[ext_resource type="Script" path="res://Objects/UI/Fishing/FishBarControl.cs" id="2_6vgin"]
+[ext_resource type="PackedScene" uid="uid://cowtrdf01y1u8" path="res://Objects/Fish/fish.tscn" id="2_bepvq"]
+[ext_resource type="Script" path="res://Objects/UI/Fishing/CatchingFish.cs" id="3_re1s5"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ehqjw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h706"]
+size = Vector2(15, 35)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fwhom"]
+bounce = 0.35
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmncw"]
+size = Vector2(480, 34.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_282px"]
+size = Vector2(1, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_m5jgj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnga7"]
+size = Vector2(40, 25)
+
+[node name="TestingScene2" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_mba6o")]
+position = Vector2(960, 600)
+scale = Vector2(5, 5)
+
+[node name="Fish" parent="." instance=ExtResource("2_bepvq")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="FishBarGroup" type="Node2D" parent="Control"]
+
+[node name="FishBarBg" type="TextureRect" parent="Control/FishBarGroup"]
+modulate = Color(0.15, 0.15, 0.15, 0.486275)
+offset_left = 720.0
+offset_top = 800.0
+offset_right = 1200.0
+offset_bottom = 835.0
+texture = SubResource("CanvasTexture_ehqjw")
+
+[node name="Borders" type="StaticBody2D" parent="Control/FishBarGroup"]
+position = Vector2(711, 817)
+collision_layer = 512
+collision_mask = 0
+
+[node name="LeftBorderShape" type="CollisionShape2D" parent="Control/FishBarGroup/Borders"]
+position = Vector2(0.25, 0.5)
+shape = SubResource("RectangleShape2D_1h706")
+
+[node name="RightBorderShape" type="CollisionShape2D" parent="Control/FishBarGroup/Borders"]
+position = Vector2(495.5, 0.5)
+shape = SubResource("RectangleShape2D_1h706")
+
+[node name="FishBarBody" type="RigidBody2D" parent="Control/FishBarGroup"]
+position = Vector2(720, 800)
+collision_layer = 0
+collision_mask = 512
+mass = 0.05
+physics_material_override = SubResource("PhysicsMaterial_fwhom")
+lock_rotation = true
+custom_integrator = true
+script = ExtResource("2_6vgin")
+
+[node name="FishBar" type="TextureRect" parent="Control/FishBarGroup/FishBarBody"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 480.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 1)
+pivot_offset = Vector2(240, 17.5)
+texture = SubResource("CanvasTexture_ehqjw")
+
+[node name="FishBarShape" type="CollisionShape2D" parent="Control/FishBarGroup/FishBarBody"]
+position = Vector2(240, 17.625)
+scale = Vector2(0.2, 1)
+shape = SubResource("RectangleShape2D_pmncw")
+
+[node name="DesiredPoint" type="StaticBody2D" parent="Control/FishBarGroup"]
+position = Vector2(724, 819)
+collision_layer = 256
+collision_mask = 0
+
+[node name="DesPointShape" type="CollisionShape2D" parent="Control/FishBarGroup/DesiredPoint"]
+position = Vector2(-2.5, -2.5)
+shape = SubResource("RectangleShape2D_282px")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/FishBarGroup/DesiredPoint"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_0lw8p")
+
+[node name="FishBody" type="RigidBody2D" parent="Control/FishBarGroup" node_paths=PackedStringArray("_leftRayCast", "_rightRayCast")]
+position = Vector2(940, 805)
+collision_layer = 0
+collision_mask = 768
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("3_re1s5")
+_leftRayCast = NodePath("LeftRayCast")
+_rightRayCast = NodePath("RightRayCast")
+
+[node name="FishSprite" type="TextureRect" parent="Control/FishBarGroup/FishBody"]
+modulate = Color(0.014, 0.1596, 0.35, 1)
+offset_right = 40.0
+offset_bottom = 25.0
+texture = SubResource("CanvasTexture_m5jgj")
+
+[node name="FishShape" type="CollisionShape2D" parent="Control/FishBarGroup/FishBody"]
+position = Vector2(20, 12.5)
+shape = SubResource("RectangleShape2D_qnga7")
+
+[node name="MoveTimer" type="Timer" parent="Control/FishBarGroup/FishBody"]
+
+[node name="LeftRayCast" type="RayCast2D" parent="Control/FishBarGroup/FishBody"]
+position = Vector2(0, 7)
+target_position = Vector2(-480, 0)
+collision_mask = 512
+
+[node name="RightRayCast" type="RayCast2D" parent="Control/FishBarGroup/FishBody"]
+position = Vector2(40, 7)
+target_position = Vector2(480, 0)
+collision_mask = 512
