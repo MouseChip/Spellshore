@@ -5,7 +5,11 @@ public partial class CatchingFish : RigidBody2D
 {	
 	[Export] private RayCast2D _leftRayCast;
 	[Export] private RayCast2D _rightRayCast;
+	[Export] private RigidBody2D _fishBar;
 
+	public float secCount = 0;
+
+	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/PlayerData.tres");
 	private FishData _fishData = GD.Load<FishData>("res://Data/FishData.tres");
 	private Timer _moveTimer;
 	private StaticBody2D _desPointBox;
@@ -16,6 +20,7 @@ public partial class CatchingFish : RigidBody2D
 	private float _activity;
 	private float _desPos = 0;
 	private bool shouldMove = false;
+	private bool _addInvFish = true;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -27,7 +32,7 @@ public partial class CatchingFish : RigidBody2D
 		_activity = MapFloat(fishDifficulty, 0, 100, 30, 85); // There will be a 30-85% chance of the fish choosing to move
 
 		_moveTimer = GetNode<Timer>("MoveTimer");
-		_moveTimer.WaitTime = 1;
+		_moveTimer.WaitTime = 2;
 		_moveTimer.Start();
 		_moveTimer.Timeout += DecideMove;
 
@@ -39,6 +44,30 @@ public partial class CatchingFish : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (secCount >= 10) {
+			GD.Print("Fish successfully caught!");
+			// Pause systems
+			_moveTimer.Stop();
+			LinearVelocity = Vector2.Zero;
+
+			// Add fish to inventory
+			if (_addInvFish) {
+				var fish = (Godot.Collections.Dictionary)_fishData.FishDict[_fishData.HookedFish];
+				var lenVar = (float)fish["lenVar"]; // Potential for variation in length for the fish
+				var fishLength = GD.RandRange((float)fish["baseLength"]-lenVar, (float)fish["baseLength"]+lenVar);
+				var invFish = new Godot.Collections.Dictionary{
+					{"id", 0},
+					{"length", fishLength}
+				};
+				_playerData.PlayerInventory.Add(invFish);
+				GD.Print(invFish);
+
+				_addInvFish = false;
+			}
+		} else {
+			if (CheckBar()) secCount += (float)delta;
+			else secCount -= (float)delta;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -89,7 +118,24 @@ public partial class CatchingFish : RigidBody2D
 		}
 	}
 
-	public static float MapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
+	private bool CheckBar() {
+		var spaceState = GetWorld2D().DirectSpaceState; // Get a reference to the worldspace
+		// Create a ray query that stretches across the fish
+		// Added/subtracted 15 so that the bar has to be at least 5 pixels into the fish for the ray to hit
+		// 15 was chosen because half of the boxes width is 20 pixels, 20-5 = 15
+		var query = PhysicsRayQueryParameters2D.Create(new Vector2(GlobalPosition.X+15, GlobalPosition.Y), new Vector2(GlobalPosition.X-15, GlobalPosition.Y), 1024);
+		query.HitFromInside = true; // Ensure that collisions are detected regardless of the bar's direction
+		var results = spaceState.IntersectRay(query); // Check for collisions with the particular ray query
+		if (results.Count > 0) { // If there was a result (i.e. the fish is over the bar)...
+			if (results["collider"].ToString() == _fishBar.ToString()) { // If the colliding body is the fish bar...
+				return true;
+            }
+		}
+
+		return false;
+	}
+
+    public static float MapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
 		return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
 	}
 }

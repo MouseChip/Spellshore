@@ -61,6 +61,7 @@ public partial class FishingRod : Node2D
 		if (_hookTimer.TimeLeft == 0 && _reelTimer.TimeLeft > 0) { // If there is a fish on the hook and it was reeled in on time...
 			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[HookedFish];
 			GD.Print("Fish reeled: ", fish["name"]);
+			_fishData.HookedFish = HookedFish;
 
 			GetTree().Root.GetNode("main").AddChild(ResourceLoader.Load<PackedScene>($"res://Scenes/TestingScene2.tscn").Instantiate()); // Add the fishing scene to the main node in the root scene
 			GetOwner().GetOwner().QueueFree(); // Get the current scene by first getting the fishing rod's owner (the player) and then the player's owner (the scene)
