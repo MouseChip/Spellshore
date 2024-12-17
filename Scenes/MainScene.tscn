@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c02061dqufq43"]
+[gd_scene load_steps=3 format=3 uid="uid://c02061dqufq43"]
 
-[ext_resource type="PackedScene" uid="uid://cf75ampj4a6bs" path="res://Scenes/TestingScene2.tscn" id="2_0rx0e"]
+[ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/TestingScene1.tscn" id="1_wdhkn"]
+[ext_resource type="PackedScene" uid="uid://dte36k112w24j" path="res://Objects/UI/HUD/BasicHud.tscn" id="2_l43yt"]
 
 [node name="main" type="Node"]
 
-[node name="TestingScene2" parent="." instance=ExtResource("2_0rx0e")]
+[node name="TestingScene1" parent="." instance=ExtResource("1_wdhkn")]
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="BasicHUD" parent="HUDLayer" instance=ExtResource("2_l43yt")]
+z_index = 10

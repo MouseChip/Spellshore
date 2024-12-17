@@ -64,6 +64,9 @@ public partial class CatchingFish : RigidBody2D
 
 				_addInvFish = false;
 			}
+
+			GetTree().Root.GetNode("main").AddChild(ResourceLoader.Load<PackedScene>($"res://Scenes/TestingScene1.tscn").Instantiate()); // Add the fishing scene to the main node in the root scene
+			GetOwner().QueueFree(); // Get the current scene and free (delete) it from the tree
 		} else {
 			if (CheckBar()) secCount += (float)delta;
 			else secCount -= (float)delta;
