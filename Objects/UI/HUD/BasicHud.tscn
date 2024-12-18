@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=9 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
+[ext_resource type="PackedScene" uid="uid://bxej3oeeerevn" path="res://Objects/UI/Menus/ToolButton.tscn" id="2_3mm63"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/InvTabs.cs" id="2_6sq4u"]
+[ext_resource type="PackedScene" uid="uid://cb0avegwux1vu" path="res://Objects/UI/Menus/BaitButton.tscn" id="3_r4lmf"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_je0yn"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_362vq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_kfb8c"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fhfcj"]
 
 [node name="BasicHUD" type="Control"]
 visibility_layer = 512
@@ -66,26 +73,305 @@ text = "Thur
 
 [node name="Inventory" type="Node2D" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="Inventory"]
+[node name="InventoryButton" type="Button" parent="Inventory"]
 modulate = Color(1, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
-texture = SubResource("CanvasTexture_je0yn")
+offset_right = 120.0
+offset_bottom = 120.0
+text = "Inventory"
+icon = SubResource("CanvasTexture_362vq")
 
-[node name="TextureRect2" type="TextureRect" parent="Inventory"]
-modulate = Color(1, 0.916667, 0, 1)
+[node name="FindexButton" type="Button" parent="Inventory"]
+modulate = Color(1, 0.9, 0, 1)
 offset_top = 120.0
-offset_right = 40.0
-offset_bottom = 160.0
-scale = Vector2(1.5, 1.5)
-texture = SubResource("CanvasTexture_je0yn")
+offset_right = 60.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 10
+text = "Findex"
+icon = SubResource("CanvasTexture_362vq")
 
-[node name="TextureRect3" type="TextureRect" parent="Inventory"]
-modulate = Color(0.0500001, 1, 0, 1)
+[node name="SpellbindButton" type="Button" parent="Inventory"]
+modulate = Color(0.15, 1, 0, 1)
 offset_left = 60.0
 offset_top = 120.0
-offset_right = 100.0
-offset_bottom = 160.0
-scale = Vector2(1.5, 1.5)
-texture = SubResource("CanvasTexture_je0yn")
+offset_right = 120.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 10
+text = "Spellbind"
+icon = SubResource("CanvasTexture_362vq")
+
+[node name="Pause" type="Node2D" parent="."]
+
+[node name="PauseButton" type="Button" parent="Pause"]
+modulate = Color(1, 0, 0, 1)
+offset_left = 1802.0
+offset_top = 1.0
+offset_right = 1922.0
+offset_bottom = 121.0
+text = "Pause"
+icon = SubResource("CanvasTexture_362vq")
+
+[node name="Menus" type="Node2D" parent="."]
+
+[node name="PrimaryMenu" type="Node2D" parent="Menus"]
+position = Vector2(360, 170)
+
+[node name="MenuBackground" type="TextureRect" parent="Menus/PrimaryMenu"]
+offset_top = 40.0
+offset_right = 1200.0
+offset_bottom = 740.0
+texture = SubResource("CanvasTexture_kfb8c")
+
+[node name="MenuTabCont" type="TabContainer" parent="Menus/PrimaryMenu"]
+offset_right = 1200.0
+offset_bottom = 40.0
+current_tab = 0
+
+[node name="InvTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="InventoryMenu" type="Node2D" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar"]
+position = Vector2(0, -31)
+
+[node name="InvCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu"]
+offset_top = 40.0
+offset_right = 1200.0
+offset_bottom = 740.0
+
+[node name="InvTabsCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont" node_paths=PackedStringArray("_rodsButton", "_wandsButton", "_rodsCont", "_wandsCont")]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+script = ExtResource("2_6sq4u")
+_rodsButton = NodePath("RodsButton")
+_wandsButton = NodePath("WandsButton")
+_rodsCont = NodePath("../InvContent/RodsCont")
+_wandsCont = NodePath("../InvContent/WandsCont")
+
+[node name="RodsButton" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvTabsCont"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+text = "Rods"
+
+[node name="WandsButton" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvTabsCont"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+text = "Wands"
+
+[node name="InvContent" type="Control" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont"]
+custom_minimum_size = Vector2(950, 0)
+layout_mode = 2
+
+[node name="RodsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent"]
+custom_minimum_size = Vector2(950, 700)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RodInvCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="RodScroll" type="ScrollContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+
+[node name="RodButtons" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ToolButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton5" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="RodDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont"]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+
+[node name="RodImg" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = SubResource("CanvasTexture_fhfcj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Example rod description:
+Ol' faithful. Can't get much simpler than a piece of driftwood with string attached."
+
+[node name="StatsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer"]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 2
+
+[node name="LuckLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer/StatsCont"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Luck: XXX"
+
+[node name="PowerLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer/StatsCont"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Power: XXX"
+
+[node name="BaitContent" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont"]
+custom_minimum_size = Vector2(250, 700)
+layout_mode = 2
+
+[node name="BaitTitle" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent"]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Bait[/center]"
+
+[node name="BaitScroll" type="ScrollContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent"]
+custom_minimum_size = Vector2(0, 625)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll"]
+custom_minimum_size = Vector2(250, 625)
+layout_mode = 2
+alignment = 1
+
+[node name="BaitGrid" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer"]
+custom_minimum_size = Vector2(200, 625)
+layout_mode = 2
+
+[node name="BaitButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
+layout_mode = 2
+
+[node name="BaitButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
+layout_mode = 2
+
+[node name="BaitButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
+layout_mode = 2
+
+[node name="BaitButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
+layout_mode = 2
+
+[node name="WandsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent"]
+visible = false
+custom_minimum_size = Vector2(950, 700)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WandInvCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont"]
+custom_minimum_size = Vector2(950, 0)
+layout_mode = 2
+
+[node name="WandScroll" type="ScrollContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont"]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 2
+
+[node name="WandButtons" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ToolButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="ToolButton5" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
+layout_mode = 2
+
+[node name="WandDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont"]
+custom_minimum_size = Vector2(950, 200)
+layout_mode = 2
+
+[node name="WandImg" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = SubResource("CanvasTexture_fhfcj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 2
+
+[node name="WandDescription" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Example rod description:
+Ol' faithful. Can't get much simpler than a crooked stick imbued with the magical powers of mystical creatures. Well... maybe you can."
+
+[node name="StatsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer"]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 2
+
+[node name="IntelligenceLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
+custom_minimum_size = Vector2(375, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Intelligence: XXX"
+
+[node name="PowerLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
+custom_minimum_size = Vector2(375, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Power: XXX"
+
+[node name="MapTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="SettingsTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
+visible = false
+layout_mode = 2
+tab_alignment = 2
+metadata/_tab_index = 2
+
+[node name="PauseTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
+visible = false
+layout_mode = 2
+tab_alignment = 2
+metadata/_tab_index = 3
+
+[node name="MapMenu" type="Node2D" parent="Menus/PrimaryMenu"]
+
+[node name="SettingsMenu" type="Node2D" parent="Menus/PrimaryMenu"]
+
+[node name="PauseMenu" type="Node2D" parent="Menus/PrimaryMenu"]

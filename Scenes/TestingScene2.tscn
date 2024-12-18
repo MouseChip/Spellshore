@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Objects/UI/Fishing/FishBarControl.cs" id="2_6vgin"]
 [ext_resource type="PackedScene" uid="uid://cowtrdf01y1u8" path="res://Objects/Fish/fish.tscn" id="2_bepvq"]
 [ext_resource type="Script" path="res://Objects/UI/Fishing/CatchingFish.cs" id="3_re1s5"]
-[ext_resource type="Script" path="res://Scenes/FishProgress.cs" id="6_y4vfu"]
+[ext_resource type="Script" path="res://Objects/UI/Fishing/FishProgress.cs" id="6_y4vfu"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ehqjw"]
 

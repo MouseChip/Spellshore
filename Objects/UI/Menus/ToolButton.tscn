@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxej3oeeerevn"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ttwhg"]
+
+[node name="ToolButton" type="Button"]
+custom_minimum_size = Vector2(200, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ToolTitle" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center][TEST NAME][/center]"
+
+[node name="ToolImage" type="TextureRect" parent="VBoxContainer"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(200, 350)
+layout_mode = 2
+texture = SubResource("CanvasTexture_ttwhg")
+
+[node name="EquipButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+text = "EQUIP"
