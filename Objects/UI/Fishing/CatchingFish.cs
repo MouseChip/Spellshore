@@ -67,6 +67,7 @@ public partial class CatchingFish : RigidBody2D
 
 			GetTree().Root.GetNode("main").AddChild(ResourceLoader.Load<PackedScene>($"res://Scenes/TestingScene1.tscn").Instantiate()); // Add the fishing scene to the main node in the root scene
 			GetOwner().QueueFree(); // Get the current scene and free (delete) it from the tree
+			GetTree().Root.GetNode("main").MoveChild(GetTree().Root.GetNode("main").GetChild(GetTree().Root.GetNode("main").GetChildCount()-1), 0); // Get the last child added (the scene) and move it to the beginning
 		} else {
 			if (CheckBar()) secCount += (float)delta;
 			else secCount -= (float)delta;

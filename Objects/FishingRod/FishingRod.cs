@@ -64,6 +64,7 @@ public partial class FishingRod : Node2D
 
 			GetTree().Root.GetNode("main").AddChild(ResourceLoader.Load<PackedScene>($"res://Scenes/TestingScene2.tscn").Instantiate()); // Add the fishing scene to the main node in the root scene
 			GetOwner().GetOwner().QueueFree(); // Get the current scene by first getting the fishing rod's owner (the player) and then the player's owner (the scene)
+			GetTree().Root.GetNode("main").MoveChild(GetTree().Root.GetNode("main").GetChild(GetTree().Root.GetNode("main").GetChildCount()-1), 0); // Get the last child added (the scene) and move it to the beginning
 		}
 
 		_hookTimer.Stop();

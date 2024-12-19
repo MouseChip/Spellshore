@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=17 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="PackedScene" uid="uid://bxej3oeeerevn" path="res://Objects/UI/Menus/ToolButton.tscn" id="2_3mm63"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/InvTabs.cs" id="2_6sq4u"]
 [ext_resource type="PackedScene" uid="uid://cb0avegwux1vu" path="res://Objects/UI/Menus/BaitButton.tscn" id="3_r4lmf"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/MapLocation.cs" id="5_mp2ih"]
+[ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/TestingScene1.tscn" id="6_7n57w"]
+[ext_resource type="PackedScene" uid="uid://cf75ampj4a6bs" path="res://Scenes/TestingScene2.tscn" id="7_y36ah"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -12,6 +15,16 @@
 [sub_resource type="CanvasTexture" id="CanvasTexture_kfb8c"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_fhfcj"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g011m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brtmi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77olm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prubs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxkm0"]
 
 [node name="BasicHUD" type="Control"]
 visibility_layer = 512
@@ -124,9 +137,10 @@ texture = SubResource("CanvasTexture_kfb8c")
 [node name="MenuTabCont" type="TabContainer" parent="Menus/PrimaryMenu"]
 offset_right = 1200.0
 offset_bottom = 40.0
-current_tab = 0
+current_tab = 3
 
 [node name="InvTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -358,6 +372,41 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="MapImage" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 14.0
+offset_right = 1195.0
+offset_bottom = 704.0
+texture = SubResource("CanvasTexture_g011m")
+
+[node name="TestLocation1" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 239.0
+offset_right = 110.0
+offset_bottom = 269.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_brtmi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_77olm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
+script = ExtResource("5_mp2ih")
+_sceneToLoad = ExtResource("6_7n57w")
+
+[node name="TestLocation2" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 419.0
+offset_right = 774.0
+offset_bottom = 449.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_brtmi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_77olm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
+script = ExtResource("5_mp2ih")
+_sceneToLoad = ExtResource("7_y36ah")
+
 [node name="SettingsTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
 visible = false
 layout_mode = 2
@@ -365,7 +414,6 @@ tab_alignment = 2
 metadata/_tab_index = 2
 
 [node name="PauseTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
-visible = false
 layout_mode = 2
 tab_alignment = 2
 metadata/_tab_index = 3
