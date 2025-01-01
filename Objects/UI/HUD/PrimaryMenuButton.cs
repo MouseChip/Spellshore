@@ -28,20 +28,14 @@ public partial class PrimaryMenuButton : Button
 		if (_primaryContainer.Visible) { // If the primary container is already open...
 			if (_inputName == "closeMenu") { // If the close button was clicked...
 				_primaryContainer.Visible = false; // Close the menu
+				return; // Ignore the button press
 			} 
-			return; // Ignore the button press
-		} else { // Otherwise...
-			ToggleMenus();
 		}
+		ToggleMenus();
 	}
 
 	private void ToggleMenus() {
 		if (_primaryContainer.Visible) { // If the primary container is already open...
-			if (_inputName == "uiPause") { // If the pause button was pressed when the menu was open...
-				_primaryContainer.Visible = false; // Close the menu
-				return;
-			}
-
 			if (_tabContainer.CurrentTab == _tabIndex) _primaryContainer.Visible = false; // If the tab opened was the one already opened, close the menu
 			else _tabContainer.CurrentTab = _tabIndex; // Otherwise, set the tab
 		} else { // Otherwise...

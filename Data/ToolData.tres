@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c28gwcrd3hht0"]
+
+[ext_resource type="Script" path="res://Data/ToolData.cs" id="1_0cg0r"]
+
+[resource]
+script = ExtResource("1_0cg0r")

@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=20 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
-[ext_resource type="PackedScene" uid="uid://bxej3oeeerevn" path="res://Objects/UI/Menus/ToolButton.tscn" id="2_3mm63"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/InvTabs.cs" id="2_6sq4u"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/PrimaryMenuButton.cs" id="2_podt0"]
-[ext_resource type="PackedScene" uid="uid://cb0avegwux1vu" path="res://Objects/UI/Menus/BaitButton.tscn" id="3_r4lmf"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/InvTabs.cs" id="3_odgda"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PopulateInv.cs" id="4_v60gv"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/MapLocation.cs" id="5_mp2ih"]
 [ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/TestingScene1.tscn" id="6_7n57w"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/ToolDetails.cs" id="6_p80du"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PopulateBait.cs" id="6_y3pan"]
+[ext_resource type="Script" path="res://Data/MapData.cs" id="7_n3yv4"]
 [ext_resource type="PackedScene" uid="uid://cf75ampj4a6bs" path="res://Scenes/TestingScene2.tscn" id="7_y36ah"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
@@ -179,7 +181,7 @@ offset_bottom = 740.0
 [node name="InvTabsCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont" node_paths=PackedStringArray("_rodsButton", "_wandsButton", "_rodsCont", "_wandsCont")]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-script = ExtResource("2_6sq4u")
+script = ExtResource("3_odgda")
 _rodsButton = NodePath("RodsButton")
 _wandsButton = NodePath("WandsButton")
 _rodsCont = NodePath("../InvContent/RodsCont")
@@ -201,11 +203,14 @@ text = "Wands"
 custom_minimum_size = Vector2(950, 0)
 layout_mode = 2
 
-[node name="RodsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent"]
+[node name="RodsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent" node_paths=PackedStringArray("_itemCont")]
 custom_minimum_size = Vector2(950, 700)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("4_v60gv")
+_itemCont = NodePath("RodInvCont/RodScroll/RodButtons")
+_invType = "rods"
 
 [node name="RodInvCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont"]
 custom_minimum_size = Vector2(700, 0)
@@ -220,62 +225,48 @@ custom_minimum_size = Vector2(700, 500)
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="ToolButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton5" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodScroll/RodButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="RodDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont"]
+[node name="ToolDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont" node_paths=PackedStringArray("_invItems", "_toolInfo", "_toolStats", "_invParent")]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
+script = ExtResource("6_p80du")
+_invItems = NodePath("../RodScroll/RodButtons")
+_toolInfo = NodePath("VBoxContainer/RichTextLabel")
+_toolStats = NodePath("VBoxContainer/StatsCont")
+_invParent = NodePath("../..")
 
-[node name="RodImg" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont"]
+[node name="ToolImg" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont"]
 modulate = Color(1, 0, 0, 1)
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = SubResource("CanvasTexture_fhfcj")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont/VBoxContainer"]
 custom_minimum_size = Vector2(500, 125)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
-text = "Example rod description:
-Ol' faithful. Can't get much simpler than a piece of driftwood with string attached."
 
-[node name="StatsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer"]
+[node name="StatsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont/VBoxContainer"]
 custom_minimum_size = Vector2(500, 75)
 layout_mode = 2
 
-[node name="LuckLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer/StatsCont"]
+[node name="Luck" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont/VBoxContainer/StatsCont"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "Luck: XXX"
 
-[node name="PowerLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/RodDetailsCont/VBoxContainer/StatsCont"]
+[node name="Power" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont/ToolDetailsCont/VBoxContainer/StatsCont"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "Power: XXX"
 
 [node name="BaitContent" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont"]
 custom_minimum_size = Vector2(250, 700)
@@ -301,25 +292,17 @@ alignment = 1
 [node name="BaitGrid" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer"]
 custom_minimum_size = Vector2(200, 625)
 layout_mode = 2
+script = ExtResource("6_y3pan")
 
-[node name="BaitButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
-layout_mode = 2
-
-[node name="BaitButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
-layout_mode = 2
-
-[node name="BaitButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
-layout_mode = 2
-
-[node name="BaitButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer/BaitGrid" instance=ExtResource("3_r4lmf")]
-layout_mode = 2
-
-[node name="WandsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent"]
+[node name="WandsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent" node_paths=PackedStringArray("_itemCont")]
 visible = false
 custom_minimum_size = Vector2(950, 700)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("4_v60gv")
+_itemCont = NodePath("WandInvCont/WandScroll/WandButtons")
+_invType = "wands"
 
 [node name="WandInvCont" type="VBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont"]
 custom_minimum_size = Vector2(950, 0)
@@ -334,24 +317,14 @@ custom_minimum_size = Vector2(700, 500)
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="ToolButton" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton2" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton3" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton4" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="ToolButton5" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandScroll/WandButtons" instance=ExtResource("2_3mm63")]
-layout_mode = 2
-
-[node name="WandDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont"]
+[node name="WandDetailsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont" node_paths=PackedStringArray("_invItems", "_toolInfo", "_toolStats", "_invParent")]
 custom_minimum_size = Vector2(950, 200)
 layout_mode = 2
+script = ExtResource("6_p80du")
+_invItems = NodePath("../WandScroll/WandButtons")
+_toolInfo = NodePath("VBoxContainer/WandDescription")
+_toolStats = NodePath("VBoxContainer/StatsCont")
+_invParent = NodePath("../..")
 
 [node name="WandImg" type="TextureRect" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont"]
 modulate = Color(1, 0, 0, 1)
@@ -368,8 +341,6 @@ custom_minimum_size = Vector2(500, 125)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
-text = "Example rod description:
-Ol' faithful. Can't get much simpler than a crooked stick imbued with the magical powers of mystical creatures. Well... maybe you can."
 
 [node name="StatsCont" type="HBoxContainer" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer"]
 custom_minimum_size = Vector2(500, 75)
@@ -381,7 +352,6 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "Intelligence: XXX"
 
 [node name="PowerLabel" type="RichTextLabel" parent="Menus/PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
 custom_minimum_size = Vector2(375, 0)
@@ -389,7 +359,6 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "Power: XXX"
 
 [node name="MapTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
 visible = false
@@ -404,8 +373,10 @@ offset_top = 14.0
 offset_right = 1195.0
 offset_bottom = 704.0
 texture = SubResource("CanvasTexture_g011m")
+script = ExtResource("7_n3yv4")
+CurScene = ExtResource("6_7n57w")
 
-[node name="TestLocation1" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage"]
+[node name="TestLocation1" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage" node_paths=PackedStringArray("_primaryCont")]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 239.0
@@ -417,8 +388,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
 script = ExtResource("5_mp2ih")
 _sceneToLoad = ExtResource("6_7n57w")
+_primaryCont = NodePath("../../../..")
 
-[node name="TestLocation2" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage"]
+[node name="TestLocation2" type="Button" parent="Menus/PrimaryMenu/MenuTabCont/MapTabBar/MapImage" node_paths=PackedStringArray("_primaryCont")]
 layout_mode = 0
 offset_left = 744.0
 offset_top = 419.0
@@ -430,6 +402,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
 script = ExtResource("5_mp2ih")
 _sceneToLoad = ExtResource("7_y36ah")
+_primaryCont = NodePath("../../../..")
 
 [node name="SettingsTabBar" type="TabBar" parent="Menus/PrimaryMenu/MenuTabCont"]
 visible = false

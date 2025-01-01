@@ -59,7 +59,8 @@ public partial class CatchingFish : RigidBody2D
 					{"id", 0},
 					{"length", fishLength}
 				};
-				_playerData.PlayerInventory.Add(invFish);
+				var fishInv = (Godot.Collections.Array)_playerData.PlayerInventory["fish"];
+				fishInv.Add(invFish);
 				GD.Print(invFish);
 
 				_addInvFish = false;

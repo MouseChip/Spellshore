@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb0avegwux1vu"]
+[gd_scene load_steps=4 format=3 uid="uid://cb0avegwux1vu"]
+
+[ext_resource type="Script" path="res://Objects/UI/Menus/BaitButton.cs" id="1_2ojyv"]
 
 [sub_resource type="Theme" id="Theme_fwxur"]
 
@@ -8,6 +10,7 @@
 custom_minimum_size = Vector2(200, 200)
 theme = SubResource("Theme_fwxur")
 icon = SubResource("CanvasTexture_04beq")
+script = ExtResource("1_2ojyv")
 
 [node name="BaitName" type="Label" parent="."]
 custom_minimum_size = Vector2(200, 0)
