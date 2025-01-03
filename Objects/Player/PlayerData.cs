@@ -13,4 +13,5 @@ public partial class PlayerData : Resource
     public String PlayerHemisphere = "south";
     public bool IsCasting = false;
     public bool IsFishing = false;
+    public bool AutoRun = false;
 }

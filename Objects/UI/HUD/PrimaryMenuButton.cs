@@ -3,7 +3,7 @@ using System;
 
 public partial class PrimaryMenuButton : Button
 {
-	[Export] private Node2D _primaryContainer;
+	[Export] private Control _primaryContainer;
 	[Export] private TabContainer _tabContainer;
 	[Export] private String _inputName;
 	[Export] private int _tabIndex;

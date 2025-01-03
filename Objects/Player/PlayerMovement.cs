@@ -15,7 +15,7 @@ public partial class PlayerMovement : CharacterBody2D
 			Vector2 inputDir = Input.GetVector("playerLeft","playerRight","playerUp","playerDown");
 			if (inputDir != Vector2.Zero) _playerData.PlayerDir = inputDir; // If there is input, log the direction
 			
-			if (Input.IsActionPressed("playerSprint")) SpdMagnifier = 2;
+			if ((Input.IsActionPressed("playerSprint") && !_playerData.AutoRun) || ((!Input.IsActionPressed("playerSprint") && _playerData.AutoRun))) SpdMagnifier = 2;
 			else SpdMagnifier = 1;
 
 			Velocity = inputDir * PlayerSpeed * SpdMagnifier;

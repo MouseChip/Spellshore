@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SetClock : Node2D
+public partial class SetClock : Control
 {
 	[Export] private RichTextLabel _timeText;
 	[Export] private RichTextLabel _ampmText;
