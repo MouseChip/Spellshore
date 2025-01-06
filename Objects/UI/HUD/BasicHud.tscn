@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=33 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/BasicHud.cs" id="1_mcm2d"]
@@ -16,6 +16,9 @@
 [ext_resource type="Script" path="res://Objects/UI/Menus/UiScaleSettings.cs" id="14_5tpls"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/WindowSettings.cs" id="15_63sai"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/PauseMenu.cs" id="16_j70kn"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/FindexMenu.cs" id="17_72yge"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/FindexPageFlip.cs" id="18_8s3q4"]
+[ext_resource type="PackedScene" uid="uid://djx0mcaclnd7p" path="res://Objects/UI/Menus/FindexFishCont.tscn" id="19_6wloy"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -43,10 +46,6 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_q5da0"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_a523c"]
-
 [node name="BasicHUD" type="Control"]
 visibility_layer = 512
 layout_mode = 3
@@ -55,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_mcm2d")
 
 [node name="Clock" type="Control" parent="." node_paths=PackedStringArray("_timeText", "_ampmText", "_dayText", "_seasonIcon", "_weatherIcon")]
@@ -724,6 +724,8 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("17_72yge")
 
 [node name="FindexBack" type="TextureRect" parent="FindexMenu"]
 modulate = Color(0.268954, 0.1389, 0.0826344, 1)
@@ -756,120 +758,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
 
-[node name="LeftPageFlip" type="Area2D" parent="FindexMenu/FdLeftPage"]
-position = Vector2(10, 850)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdLeftPage/LeftPageFlip"]
-position = Vector2(21, -21)
-polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
-
-[node name="FishCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage"]
+[node name="FishCont" parent="FindexMenu/FdLeftPage" instance=ExtResource("19_6wloy")]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 20.0
-offset_right = 550.0
-offset_bottom = 410.0
-
-[node name="LeftHalf" type="VBoxContainer" parent="FindexMenu/FdLeftPage/FishCont"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="FishPhoto" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf"]
-modulate = Color(1, 0.05, 0.05, 1)
-custom_minimum_size = Vector2(250, 300)
-layout_mode = 2
-texture = SubResource("CanvasTexture_u0j64")
-
-[node name="PBCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf"]
-layout_mode = 2
-
-[node name="PB" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf/PBCont"]
-custom_minimum_size = Vector2(175, 50)
-layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 25
-text = "PB: XXXX cm"
-
-[node name="PBStar" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf/PBCont"]
-modulate = Color(0.91, 0.273, 0, 1)
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-texture = SubResource("CanvasTexture_q5da0")
-
-[node name="RightHalf" type="VBoxContainer" parent="FindexMenu/FdLeftPage/FishCont"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Name" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
-custom_minimum_size = Vector2(250, 40)
-layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 25
-text = "Fish XXX"
-
-[node name="StatCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
-layout_mode = 2
-
-[node name="Difficulty" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/StatCont"]
-custom_minimum_size = Vector2(125, 30)
-layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 20
-text = "Dif: XXX"
-
-[node name="Rarity" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/StatCont"]
-custom_minimum_size = Vector2(125, 30)
-layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 20
-text = "Rar: XXX"
-
-[node name="MarginContainer" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
-layout_mode = 2
-theme_override_constants/margin_top = 10
-
-[node name="Description" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/MarginContainer"]
-custom_minimum_size = Vector2(250, 200)
-layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 18
-text = "Generic fish description goes here, then time and weather, also mention bait. Filling out space until I hit the bottom, foo bar baz. Lorem ipsum dolor sit amet, every so slightly more, done."
-
-[node name="RunesCont" type="GridContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
-custom_minimum_size = Vector2(0, 95)
-layout_mode = 2
-theme_override_constants/h_separation = 7
-columns = 3
-
-[node name="Rune1" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune1"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
-
-[node name="Rune2" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune2"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
-
-[node name="Rune3" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune3"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
 
 [node name="FishCont2" type="HBoxContainer" parent="FindexMenu/FdLeftPage"]
 layout_mode = 1
@@ -888,6 +778,16 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 texture = SubResource("CanvasTexture_u0j64")
 
+[node name="LeftPageFlip" type="Area2D" parent="FindexMenu/FdLeftPage" node_paths=PackedStringArray("_findexMenu")]
+position = Vector2(10, 850)
+script = ExtResource("18_8s3q4")
+_findexMenu = NodePath("../..")
+_incrementVal = -4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdLeftPage/LeftPageFlip"]
+position = Vector2(21, -21)
+polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
 [node name="FdRightPage" type="TextureRect" parent="FindexMenu"]
 layout_mode = 1
 anchors_preset = 8
@@ -903,9 +803,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
 
-[node name="RightPageFlip" type="Area2D" parent="FindexMenu/FdRightPage"]
+[node name="RightPageFlip" type="Area2D" parent="FindexMenu/FdRightPage" node_paths=PackedStringArray("_findexMenu")]
 position = Vector2(570, 850)
-scale = Vector2(-1, 1)
+rotation = 3.14159
+scale = Vector2(1, -1)
+script = ExtResource("18_8s3q4")
+_findexMenu = NodePath("../..")
+_incrementVal = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdRightPage/RightPageFlip"]
 position = Vector2(21, -21)

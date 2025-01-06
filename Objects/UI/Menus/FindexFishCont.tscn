@@ -1,0 +1,114 @@
+[gd_scene load_steps=4 format=3 uid="uid://djx0mcaclnd7p"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_q5da0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a523c"]
+
+[node name="FishCont" type="HBoxContainer"]
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 550.0
+offset_bottom = 410.0
+
+[node name="LeftHalf" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FishPhoto" type="TextureRect" parent="LeftHalf"]
+modulate = Color(1, 0.05, 0.05, 1)
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+texture = SubResource("CanvasTexture_u0j64")
+
+[node name="PBCont" type="HBoxContainer" parent="LeftHalf"]
+layout_mode = 2
+
+[node name="PB" type="RichTextLabel" parent="LeftHalf/PBCont"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "PB: XXXX cm"
+
+[node name="PBStar" type="TextureRect" parent="LeftHalf/PBCont"]
+modulate = Color(0.91, 0.273, 0, 1)
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+texture = SubResource("CanvasTexture_q5da0")
+
+[node name="RightHalf" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Name" type="RichTextLabel" parent="RightHalf"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Fish XXX"
+
+[node name="StatCont" type="HBoxContainer" parent="RightHalf"]
+layout_mode = 2
+
+[node name="Difficulty" type="RichTextLabel" parent="RightHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Dif: XXX"
+
+[node name="Rarity" type="RichTextLabel" parent="RightHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Rar: XXX"
+
+[node name="MarginContainer" type="MarginContainer" parent="RightHalf"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Description" type="RichTextLabel" parent="RightHalf/MarginContainer"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Generic fish description goes here, then time and weather, also mention bait. Filling out space until I hit the bottom, foo bar baz. Lorem ipsum dolor sit amet, every so slightly more, done."
+
+[node name="RunesCont" type="GridContainer" parent="RightHalf"]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+theme_override_constants/h_separation = 7
+columns = 3
+
+[node name="Rune1" type="MarginContainer" parent="RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune1"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")
+
+[node name="Rune2" type="MarginContainer" parent="RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune2"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")
+
+[node name="Rune3" type="MarginContainer" parent="RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune3"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")

@@ -6,7 +6,7 @@ public partial class FishData : Resource
 	public int HookedFish;
 
 	public Godot.Collections.Dictionary FishDict = new Godot.Collections.Dictionary {
-		{0, new Godot.Collections.Dictionary{
+		{1, new Godot.Collections.Dictionary{
 			{"name", "testFish1"},
 			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
 			{"source", new Godot.Collections.Array{"all"}},
@@ -21,7 +21,7 @@ public partial class FishData : Resource
 			{"caught", 0},
 		}},
 
-		{1, new Godot.Collections.Dictionary{
+		{2, new Godot.Collections.Dictionary{
 			{"name", "testFish2"},
 			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
 			{"source", new Godot.Collections.Array{"saltwater"}},
@@ -36,7 +36,7 @@ public partial class FishData : Resource
 			{"caught", 0},
 		}},
 
-		{2, new Godot.Collections.Dictionary{
+		{3, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
 			{"scene", new Godot.Collections.Array{"testing_scene_1"}},
 			{"source", new Godot.Collections.Array{"all"}},
