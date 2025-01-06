@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=32 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/BasicHud.cs" id="1_mcm2d"]
@@ -36,6 +36,16 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxkm0"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_pmbk2"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_evlgn"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tuh1q"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_q5da0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a523c"]
 
 [node name="BasicHUD" type="Control"]
 visibility_layer = 512
@@ -127,6 +137,7 @@ anchors_preset = 0
 
 [node name="InventoryButton" type="Button" parent="Inventory" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
 modulate = Color(1, 0, 0, 1)
+layout_mode = 0
 offset_right = 120.0
 offset_bottom = 120.0
 text = "Inventory"
@@ -138,6 +149,7 @@ _inputName = "uiInv"
 
 [node name="MapButton" type="Button" parent="Inventory" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
 modulate = Color(1, 0, 0, 1)
+layout_mode = 0
 offset_left = 121.0
 offset_right = 241.0
 offset_bottom = 120.0
@@ -152,6 +164,7 @@ _tabIndex = 1
 
 [node name="FindexButton" type="Button" parent="Inventory"]
 modulate = Color(1, 0.9, 0, 1)
+layout_mode = 0
 offset_top = 120.0
 offset_right = 60.0
 offset_bottom = 180.0
@@ -161,6 +174,7 @@ icon = SubResource("CanvasTexture_362vq")
 
 [node name="SpellbindButton" type="Button" parent="Inventory"]
 modulate = Color(0.15, 1, 0, 1)
+layout_mode = 0
 offset_left = 60.0
 offset_top = 120.0
 offset_right = 120.0
@@ -197,6 +211,7 @@ _inputName = "uiPause"
 _tabIndex = 3
 
 [node name="PrimaryMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -212,12 +227,14 @@ grow_vertical = 2
 pivot_offset = Vector2(600, 370)
 
 [node name="MenuBackground" type="TextureRect" parent="PrimaryMenu"]
+layout_mode = 0
 offset_top = 40.0
 offset_right = 1200.0
 offset_bottom = 740.0
 texture = SubResource("CanvasTexture_kfb8c")
 
 [node name="MenuTabCont" type="TabContainer" parent="PrimaryMenu"]
+layout_mode = 0
 offset_right = 1200.0
 offset_bottom = 40.0
 current_tab = 3
@@ -684,6 +701,7 @@ text = "Resume
 "
 
 [node name="CloseButton" type="Button" parent="PrimaryMenu" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
+layout_mode = 0
 offset_left = 1170.0
 offset_right = 1200.0
 offset_bottom = 31.0
@@ -692,3 +710,248 @@ script = ExtResource("2_podt0")
 _primaryContainer = NodePath("..")
 _tabContainer = NodePath("../MenuTabCont")
 _inputName = "closeMenu"
+
+[node name="FindexMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FindexBack" type="TextureRect" parent="FindexMenu"]
+modulate = Color(0.268954, 0.1389, 0.0826344, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.0
+offset_top = -450.0
+offset_right = 625.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_evlgn")
+
+[node name="FdLeftPage" type="TextureRect" parent="FindexMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -430.0
+offset_right = -20.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_tuh1q")
+
+[node name="LeftPageFlip" type="Area2D" parent="FindexMenu/FdLeftPage"]
+position = Vector2(10, 850)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdLeftPage/LeftPageFlip"]
+position = Vector2(21, -21)
+polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
+[node name="FishCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 550.0
+offset_bottom = 410.0
+
+[node name="LeftHalf" type="VBoxContainer" parent="FindexMenu/FdLeftPage/FishCont"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FishPhoto" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf"]
+modulate = Color(1, 0.05, 0.05, 1)
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+texture = SubResource("CanvasTexture_u0j64")
+
+[node name="PBCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf"]
+layout_mode = 2
+
+[node name="PB" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf/PBCont"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "PB: XXXX cm"
+
+[node name="PBStar" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/LeftHalf/PBCont"]
+modulate = Color(0.91, 0.273, 0, 1)
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+texture = SubResource("CanvasTexture_q5da0")
+
+[node name="RightHalf" type="VBoxContainer" parent="FindexMenu/FdLeftPage/FishCont"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Name" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Fish XXX"
+
+[node name="StatCont" type="HBoxContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
+layout_mode = 2
+
+[node name="Difficulty" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Dif: XXX"
+
+[node name="Rarity" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Rar: XXX"
+
+[node name="MarginContainer" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Description" type="RichTextLabel" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/MarginContainer"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Generic fish description goes here, then time and weather, also mention bait. Filling out space until I hit the bottom, foo bar baz. Lorem ipsum dolor sit amet, every so slightly more, done."
+
+[node name="RunesCont" type="GridContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf"]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+theme_override_constants/h_separation = 7
+columns = 3
+
+[node name="Rune1" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune1"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")
+
+[node name="Rune2" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune2"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")
+
+[node name="Rune3" type="MarginContainer" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont"]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont/RightHalf/RunesCont/Rune3"]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")
+
+[node name="FishCont2" type="HBoxContainer" parent="FindexMenu/FdLeftPage"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -410.0
+offset_right = 550.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont2"]
+modulate = Color(1, 0.05, 0.05, 1)
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+texture = SubResource("CanvasTexture_u0j64")
+
+[node name="FdRightPage" type="TextureRect" parent="FindexMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -430.0
+offset_right = 600.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_tuh1q")
+
+[node name="RightPageFlip" type="Area2D" parent="FindexMenu/FdRightPage"]
+position = Vector2(570, 850)
+scale = Vector2(-1, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdRightPage/RightPageFlip"]
+position = Vector2(21, -21)
+polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
+[node name="TabBut1" type="Button" parent="FindexMenu"]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -410.0
+offset_right = -580.0
+offset_bottom = -360.0
+theme_override_font_sizes/font_size = 25
+text = "Area 1"
+
+[node name="TabBut2" type="Button" parent="FindexMenu"]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -350.0
+offset_right = -580.0
+offset_bottom = -300.0
+theme_override_font_sizes/font_size = 25
+text = "Area 2"
+
+[node name="TabBut3" type="Button" parent="FindexMenu"]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -290.0
+offset_right = -580.0
+offset_bottom = -240.0
+theme_override_font_sizes/font_size = 25
+text = "Area 3"
+
+[node name="TabBut4" type="Button" parent="FindexMenu"]
+layout_mode = 0
+offset_left = 620.0
+offset_top = -230.0
+offset_right = 720.0
+offset_bottom = -180.0
+theme_override_font_sizes/font_size = 25
+text = "Area 4"
+
+[node name="TabBut5" type="Button" parent="FindexMenu"]
+layout_mode = 0
+offset_left = 620.0
+offset_top = -170.0
+offset_right = 720.0
+offset_bottom = -120.0
+theme_override_font_sizes/font_size = 25
+text = "Area 5"
