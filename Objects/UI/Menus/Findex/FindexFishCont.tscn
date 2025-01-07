@@ -1,41 +1,56 @@
-[gd_scene load_steps=5 format=3 uid="uid://d267dhte8pit6"]
+[gd_scene load_steps=9 format=3 uid="uid://djx0mcaclnd7p"]
 
-[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexSetInfo.cs" id="1_ev2jn"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexSetInfo.cs" id="1_42d1j"]
+[ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_3q7an"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/CentreGrid.cs" id="2_81pha"]
+[ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="2_dmjf2"]
+[ext_resource type="PackedScene" uid="uid://c8w6xrhn6r1i0" path="res://Objects/UI/Menus/Findex/FindexRune.tscn" id="3_8y5v8"]
+[ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="3_kft7y"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_q5da0"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_a523c"]
-
-[node name="FishCont" type="HBoxContainer"]
+[node name="FishCont" type="HBoxContainer" node_paths=PackedStringArray("_fishPhoto", "_pbText", "_pbStar", "_fishName", "_fishDif", "_fishRar", "_fishDesc", "_runesCont")]
 offset_left = 50.0
 offset_top = 20.0
 offset_right = 550.0
 offset_bottom = 410.0
-script = ExtResource("1_ev2jn")
+script = ExtResource("1_42d1j")
+_playerData = ExtResource("2_3q7an")
+_fishData = ExtResource("2_dmjf2")
+_runeData = ExtResource("3_kft7y")
+_fishPhoto = NodePath("LeftHalf/FishPhoto")
+_pbText = NodePath("LeftHalf/PBCont/PB")
+_pbStar = NodePath("LeftHalf/PBCont/PBStar")
+_fishName = NodePath("RightHalf/Name")
+_fishDif = NodePath("RightHalf/StatCont/Difficulty")
+_fishRar = NodePath("RightHalf/StatCont/Rarity")
+_fishDesc = NodePath("RightHalf/MarginContainer/Description")
+_runesCont = NodePath("RightHalf/RunesCont")
+_runeObj = ExtResource("3_8y5v8")
 
-[node name="adsa" type="VBoxContainer" parent="."]
+[node name="LeftHalf" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="FishPhoto" type="TextureRect" parent="adsa"]
+[node name="FishPhoto" type="TextureRect" parent="LeftHalf"]
 modulate = Color(1, 0.05, 0.05, 1)
 custom_minimum_size = Vector2(250, 300)
 layout_mode = 2
 texture = SubResource("CanvasTexture_u0j64")
 
-[node name="PBCont" type="HBoxContainer" parent="adsa"]
+[node name="PBCont" type="HBoxContainer" parent="LeftHalf"]
 layout_mode = 2
 
-[node name="PB" type="RichTextLabel" parent="adsa/PBCont"]
+[node name="PB" type="RichTextLabel" parent="LeftHalf/PBCont"]
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 25
 text = "PB: XXXX cm"
 
-[node name="PBStar" type="TextureRect" parent="adsa/PBCont"]
+[node name="PBStar" type="TextureRect" parent="LeftHalf/PBCont"]
 modulate = Color(0.91, 0.273, 0, 1)
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
@@ -80,38 +95,6 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 18
 text = "Generic fish description goes here, then time and weather, also mention bait. Filling out space until I hit the bottom, foo bar baz. Lorem ipsum dolor sit amet, every so slightly more, done."
 
-[node name="RunesCont" type="GridContainer" parent="RightHalf"]
-custom_minimum_size = Vector2(0, 95)
+[node name="RunesCont" type="Control" parent="RightHalf"]
 layout_mode = 2
-theme_override_constants/h_separation = 7
-columns = 3
-
-[node name="Rune1" type="MarginContainer" parent="RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune1"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
-
-[node name="Rune2" type="MarginContainer" parent="RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune2"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
-
-[node name="Rune3" type="MarginContainer" parent="RightHalf/RunesCont"]
-layout_mode = 2
-theme_override_constants/margin_top = 7
-
-[node name="TextureRect" type="TextureRect" parent="RightHalf/RunesCont/Rune3"]
-modulate = Color(0.720048, 0.497938, 0.0493605, 1)
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture = SubResource("CanvasTexture_a523c")
+script = ExtResource("2_81pha")

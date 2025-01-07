@@ -181,7 +181,4 @@ public partial class FishingRod : Node2D
 	public static float MapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
 		return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
 	}
-
-	// [3, 41, 15, 19, 22]
-	// 16
 }

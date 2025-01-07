@@ -1,24 +1,27 @@
-[gd_scene load_steps=33 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=35 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/BasicHud.cs" id="1_mcm2d"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/PrimaryMenuButton.cs" id="2_podt0"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/InvTabs.cs" id="3_odgda"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/PopulateInv.cs" id="4_v60gv"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/MapLocation.cs" id="5_mp2ih"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/InvTabs.cs" id="4_8ow3c"]
+[ext_resource type="Script" path="res://Objects/UI/HUD/BookMenuButton.cs" id="4_kk3aa"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/PopulateInv.cs" id="5_j1f4x"]
 [ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/TestingScene1.tscn" id="6_7n57w"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/ToolDetails.cs" id="6_p80du"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/PopulateBait.cs" id="6_y3pan"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/ToolDetails.cs" id="6_ruwf8"]
 [ext_resource type="Script" path="res://Data/MapData.cs" id="7_n3yv4"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/PopulateBait.cs" id="7_xohdc"]
 [ext_resource type="PackedScene" uid="uid://cf75ampj4a6bs" path="res://Scenes/TestingScene2.tscn" id="7_y36ah"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/SoundSlider.cs" id="11_7obyx"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/RunSettings.cs" id="12_argcx"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/UiScaleSettings.cs" id="14_5tpls"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/WindowSettings.cs" id="15_63sai"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/PauseMenu.cs" id="16_j70kn"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/FindexMenu.cs" id="17_72yge"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/FindexPageFlip.cs" id="18_8s3q4"]
-[ext_resource type="PackedScene" uid="uid://djx0mcaclnd7p" path="res://Objects/UI/Menus/FindexFishCont.tscn" id="19_6wloy"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/MapLocation.cs" id="10_ie87u"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/SoundSlider.cs" id="12_bhlcw"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/RunSettings.cs" id="13_l7rtq"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/UiScaleSettings.cs" id="14_loo0o"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/WindowSettings.cs" id="15_0n5t3"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/PauseMenu.cs" id="16_eg1c2"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexMenu.cs" id="17_yqvtp"]
+[ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="18_yrls0"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageLogic.cs" id="20_588pp"]
+[ext_resource type="PackedScene" uid="uid://djx0mcaclnd7p" path="res://Objects/UI/Menus/Findex/FindexFishCont.tscn" id="20_dcqpw"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageFlip.cs" id="20_rk7mb"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -43,8 +46,6 @@
 [sub_resource type="CanvasTexture" id="CanvasTexture_evlgn"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tuh1q"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
 
 [node name="BasicHUD" type="Control"]
 visibility_layer = 512
@@ -132,10 +133,10 @@ theme_override_font_sizes/normal_font_size = 30
 text = "Thur
 "
 
-[node name="Inventory" type="Control" parent="."]
+[node name="TopLeftButtons" type="Control" parent="."]
 anchors_preset = 0
 
-[node name="InventoryButton" type="Button" parent="Inventory" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
+[node name="InventoryButton" type="Button" parent="TopLeftButtons" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
 modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_right = 120.0
@@ -147,7 +148,7 @@ _primaryContainer = NodePath("../../PrimaryMenu")
 _tabContainer = NodePath("../../PrimaryMenu/MenuTabCont")
 _inputName = "uiInv"
 
-[node name="MapButton" type="Button" parent="Inventory" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
+[node name="MapButton" type="Button" parent="TopLeftButtons" node_paths=PackedStringArray("_primaryContainer", "_tabContainer")]
 modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_left = 121.0
@@ -162,7 +163,7 @@ _tabContainer = NodePath("../../PrimaryMenu/MenuTabCont")
 _inputName = "uiMap"
 _tabIndex = 1
 
-[node name="FindexButton" type="Button" parent="Inventory"]
+[node name="FindexButton" type="Button" parent="TopLeftButtons" node_paths=PackedStringArray("_menuCont")]
 modulate = Color(1, 0.9, 0, 1)
 layout_mode = 0
 offset_top = 120.0
@@ -171,8 +172,11 @@ offset_bottom = 180.0
 theme_override_font_sizes/font_size = 10
 text = "Findex"
 icon = SubResource("CanvasTexture_362vq")
+script = ExtResource("4_kk3aa")
+_menuCont = NodePath("../../FindexMenu")
+_inputName = "uiFindex"
 
-[node name="SpellbindButton" type="Button" parent="Inventory"]
+[node name="SpellbindButton" type="Button" parent="TopLeftButtons"]
 modulate = Color(0.15, 1, 0, 1)
 layout_mode = 0
 offset_left = 60.0
@@ -255,7 +259,7 @@ offset_bottom = 740.0
 [node name="InvTabsCont" type="VBoxContainer" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont" node_paths=PackedStringArray("_rodsButton", "_wandsButton", "_rodsCont", "_wandsCont")]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-script = ExtResource("3_odgda")
+script = ExtResource("4_8ow3c")
 _rodsButton = NodePath("RodsButton")
 _wandsButton = NodePath("WandsButton")
 _rodsCont = NodePath("../InvContent/RodsCont")
@@ -282,7 +286,7 @@ custom_minimum_size = Vector2(950, 700)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("4_v60gv")
+script = ExtResource("5_j1f4x")
 _itemCont = NodePath("RodInvCont/RodScroll/RodButtons")
 _invType = "rods"
 
@@ -302,7 +306,7 @@ theme_override_constants/separation = 15
 [node name="ToolDetailsCont" type="HBoxContainer" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/RodInvCont" node_paths=PackedStringArray("_invItems", "_toolInfo", "_toolStats", "_invParent")]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
-script = ExtResource("6_p80du")
+script = ExtResource("6_ruwf8")
 _invItems = NodePath("../RodScroll/RodButtons")
 _toolInfo = NodePath("VBoxContainer/RichTextLabel")
 _toolStats = NodePath("VBoxContainer/StatsCont")
@@ -366,7 +370,7 @@ alignment = 1
 [node name="BaitGrid" type="VBoxContainer" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/RodsCont/BaitContent/BaitScroll/HBoxContainer"]
 custom_minimum_size = Vector2(200, 625)
 layout_mode = 2
-script = ExtResource("6_y3pan")
+script = ExtResource("7_xohdc")
 
 [node name="WandsCont" type="HBoxContainer" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent" node_paths=PackedStringArray("_itemCont")]
 visible = false
@@ -374,7 +378,7 @@ custom_minimum_size = Vector2(950, 700)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("4_v60gv")
+script = ExtResource("5_j1f4x")
 _itemCont = NodePath("WandInvCont/WandScroll/WandButtons")
 _invType = "wands"
 
@@ -394,7 +398,7 @@ theme_override_constants/separation = 15
 [node name="WandDetailsCont" type="HBoxContainer" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont" node_paths=PackedStringArray("_invItems", "_toolInfo", "_toolStats", "_invParent")]
 custom_minimum_size = Vector2(950, 200)
 layout_mode = 2
-script = ExtResource("6_p80du")
+script = ExtResource("6_ruwf8")
 _invItems = NodePath("../WandScroll/WandButtons")
 _toolInfo = NodePath("VBoxContainer/WandDescription")
 _toolStats = NodePath("VBoxContainer/StatsCont")
@@ -462,7 +466,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_brtmi")
 theme_override_styles/hover = SubResource("StyleBoxFlat_77olm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
-script = ExtResource("5_mp2ih")
+script = ExtResource("10_ie87u")
 _sceneToLoad = ExtResource("6_7n57w")
 _primaryCont = NodePath("../../../../..")
 
@@ -476,7 +480,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_brtmi")
 theme_override_styles/hover = SubResource("StyleBoxFlat_77olm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_prubs")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xxkm0")
-script = ExtResource("5_mp2ih")
+script = ExtResource("10_ie87u")
 _sceneToLoad = ExtResource("7_y36ah")
 _primaryCont = NodePath("../../../../..")
 
@@ -498,7 +502,7 @@ position = Vector2(0, -31)
 
 [node name="MusicSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_volumeSlider", "_defButton", "_muteButton")]
 position = Vector2(0, 40)
-script = ExtResource("11_7obyx")
+script = ExtResource("12_bhlcw")
 _volumeSlider = NodePath("MusicSlider")
 _defButton = NodePath("DefButton")
 _muteButton = NodePath("MuteButton")
@@ -535,7 +539,7 @@ offset_bottom = 46.0
 
 [node name="SoundSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_volumeSlider", "_defButton", "_muteButton")]
 position = Vector2(0, 86)
-script = ExtResource("11_7obyx")
+script = ExtResource("12_bhlcw")
 _volumeSlider = NodePath("SoundSlider")
 _defButton = NodePath("DefButton")
 _muteButton = NodePath("MuteButton")
@@ -572,7 +576,7 @@ offset_bottom = 46.0
 
 [node name="AmbienceSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_volumeSlider", "_defButton", "_muteButton")]
 position = Vector2(0, 129)
-script = ExtResource("11_7obyx")
+script = ExtResource("12_bhlcw")
 _volumeSlider = NodePath("AmbienceSlider")
 _defButton = NodePath("DefButton")
 _muteButton = NodePath("MuteButton")
@@ -609,7 +613,7 @@ offset_bottom = 46.0
 
 [node name="RunSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_autoRunBut")]
 position = Vector2(0, 187)
-script = ExtResource("12_argcx")
+script = ExtResource("13_l7rtq")
 _autoRunBut = NodePath("CheckButton")
 
 [node name="Label" type="Label" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu/RunSettings"]
@@ -627,7 +631,7 @@ offset_bottom = 24.0
 
 [node name="UIScaleSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_scaleSlider", "_basicHud", "_defButton")]
 position = Vector2(0, 211)
-script = ExtResource("14_5tpls")
+script = ExtResource("14_loo0o")
 _scaleSlider = NodePath("UIScaleSlider")
 _basicHud = NodePath("../../../../..")
 _defButton = NodePath("DefButton")
@@ -659,7 +663,7 @@ offset_bottom = 46.0
 
 [node name="WindowSettings" type="Node2D" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu" node_paths=PackedStringArray("_windowModeBut")]
 position = Vector2(0, 40)
-script = ExtResource("15_63sai")
+script = ExtResource("15_0n5t3")
 _windowModeBut = NodePath("OptionButton")
 
 [node name="Label" type="Label" parent="PrimaryMenu/MenuTabCont/SettingsTabBar/SettingsMenu/WindowSettings"]
@@ -688,7 +692,7 @@ tab_alignment = 2
 metadata/_tab_index = 3
 
 [node name="PauseMenu" type="Node2D" parent="PrimaryMenu/MenuTabCont/PauseTabBar" node_paths=PackedStringArray("_primaryCont", "_resBut")]
-script = ExtResource("16_j70kn")
+script = ExtResource("16_eg1c2")
 _primaryCont = NodePath("../../..")
 _resBut = NodePath("ResumeButton")
 
@@ -712,6 +716,7 @@ _tabContainer = NodePath("../MenuTabCont")
 _inputName = "closeMenu"
 
 [node name="FindexMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -725,7 +730,8 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("17_72yge")
+script = ExtResource("17_yqvtp")
+_fishData = ExtResource("18_yrls0")
 
 [node name="FindexBack" type="TextureRect" parent="FindexMenu"]
 modulate = Color(0.268954, 0.1389, 0.0826344, 1)
@@ -743,7 +749,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_evlgn")
 
-[node name="FdLeftPage" type="TextureRect" parent="FindexMenu"]
+[node name="FdLeftPage" type="TextureRect" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu", "_fishCont1", "_fishCont2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -757,30 +763,24 @@ offset_bottom = 430.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
+script = ExtResource("20_588pp")
+_findexMenu = NodePath("..")
+_fishCont1 = NodePath("FishCont")
+_fishCont2 = NodePath("FishCont2")
 
-[node name="FishCont" parent="FindexMenu/FdLeftPage" instance=ExtResource("19_6wloy")]
-layout_mode = 0
-
-[node name="FishCont2" type="HBoxContainer" parent="FindexMenu/FdLeftPage"]
+[node name="FishCont" parent="FindexMenu/FdLeftPage" instance=ExtResource("20_dcqpw")]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -410.0
-offset_right = 550.0
-offset_bottom = -20.0
-grow_vertical = 0
+offset_right = 658.0
 
-[node name="TextureRect" type="TextureRect" parent="FindexMenu/FdLeftPage/FishCont2"]
-modulate = Color(1, 0.05, 0.05, 1)
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-texture = SubResource("CanvasTexture_u0j64")
+[node name="FishCont2" parent="FindexMenu/FdLeftPage" instance=ExtResource("20_dcqpw")]
+layout_mode = 1
+offset_top = 450.0
+offset_right = 658.0
+offset_bottom = 840.0
 
 [node name="LeftPageFlip" type="Area2D" parent="FindexMenu/FdLeftPage" node_paths=PackedStringArray("_findexMenu")]
 position = Vector2(10, 850)
-script = ExtResource("18_8s3q4")
+script = ExtResource("20_rk7mb")
 _findexMenu = NodePath("../..")
 _incrementVal = -4
 
@@ -788,7 +788,7 @@ _incrementVal = -4
 position = Vector2(21, -21)
 polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
 
-[node name="FdRightPage" type="TextureRect" parent="FindexMenu"]
+[node name="FdRightPage" type="TextureRect" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu", "_fishCont1", "_fishCont2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -802,12 +802,29 @@ offset_bottom = 430.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
+script = ExtResource("20_588pp")
+_findexMenu = NodePath("..")
+_fishCont1 = NodePath("FishCont")
+_fishCont2 = NodePath("FishCont2")
+_pageStartVal = 2
+
+[node name="FishCont" parent="FindexMenu/FdRightPage" instance=ExtResource("20_dcqpw")]
+layout_mode = 1
+offset_left = 20.0
+offset_right = 528.0
+
+[node name="FishCont2" parent="FindexMenu/FdRightPage" instance=ExtResource("20_dcqpw")]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 450.0
+offset_right = 528.0
+offset_bottom = 840.0
 
 [node name="RightPageFlip" type="Area2D" parent="FindexMenu/FdRightPage" node_paths=PackedStringArray("_findexMenu")]
 position = Vector2(570, 850)
 rotation = 3.14159
 scale = Vector2(1, -1)
-script = ExtResource("18_8s3q4")
+script = ExtResource("20_rk7mb")
 _findexMenu = NodePath("../..")
 _incrementVal = 4
 

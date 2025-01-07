@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8w6xrhn6r1i0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a523c"]
+
+[node name="Rune" type="MarginContainer"]
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.720048, 0.497938, 0.0493605, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = SubResource("CanvasTexture_a523c")

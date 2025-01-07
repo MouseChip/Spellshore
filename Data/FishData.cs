@@ -16,9 +16,12 @@ public partial class FishData : Resource
 			{"difficulty", 50},
 			{"baseLength", 8},
 			{"lenVar", 2},
+			{"pb", 8},
 			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
 			{"bait", new Godot.Collections.Array{"all"}},
-			{"caught", 0},
+			{"caught", 3},
+			{"description", "test fish 1 description, such as location, source, climate, hours, bait, and more"},
+			{"info", "test fish 1 info, such as location, climate, hours, and bait."}
 		}},
 
 		{2, new Godot.Collections.Dictionary{
@@ -31,9 +34,12 @@ public partial class FishData : Resource
 			{"difficulty", 10},
 			{"baseLength", 60},
 			{"lenVar", 20},
-			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
+			{"pb", 40},
+			{"attacks", new Godot.Collections.Array{"splash"}},
 			{"bait", new Godot.Collections.Array{"worm", "squid"}},
-			{"caught", 0},
+			{"caught", 1},
+			{"description", "test fish 2 description, such as location, source, climate, hours, bait, and more"},
+			{"info", "test fish 2 info, such as location, climate, hours, and bait."}
 		}},
 
 		{3, new Godot.Collections.Dictionary{
@@ -46,9 +52,12 @@ public partial class FishData : Resource
 			{"difficulty", 80},
 			{"baseLength", 300},
 			{"lenVar", 50},
-			{"attacks", new Godot.Collections.Array{"splash", "slap"}},
+			{"pb", 320},
+			{"attacks", new Godot.Collections.Array{"slap"}},
 			{"bait", new Godot.Collections.Array{"worm"}},
 			{"caught", 0},
+			{"description", "test fish 3 description, such as location, source, climate, hours, bait, and more"},
+			{"info", "test fish 3 info, such as location, climate, hours, and bait."}
 		}}
 	};
 }
