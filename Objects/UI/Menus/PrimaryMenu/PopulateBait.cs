@@ -15,7 +15,7 @@ public partial class PopulateBait : VBoxContainer
 	private void PopulateBaitContent() {
 		if (Visible) { // If this tab is open...
 			foreach (String item in (Godot.Collections.Array)_playerData.PlayerInventory["bait"]) { // For each of a specific type of item in the player's inventory...
-				BaitButton baitItem = (BaitButton)GD.Load<PackedScene>("res://Objects/UI/Menus/BaitButton.tscn").Instantiate(); // Create a new rod item
+				BaitButton baitItem = (BaitButton)GD.Load<PackedScene>("res://Objects/UI/Menus/PrimaryMenu/BaitButton.tscn").Instantiate(); // Create a new rod item
 				baitItem.BaitId = item;
 				var tool = (Godot.Collections.Dictionary)_toolData.BaitDict[baitItem.BaitId];
 				baitItem.Name = (String)tool["name"];

@@ -25,7 +25,7 @@ public partial class PopulateInv : HBoxContainer
 	private void PopulateInvContent() {
 		if (Visible) { // If this tab is open...
 			foreach (String item in (Godot.Collections.Array)_playerData.PlayerInventory[_invType]) { // For each of a specific type of item in the player's inventory...
-				ToolButton rodItem = (ToolButton)GD.Load<PackedScene>("res://Objects/UI/Menus/ToolButton.tscn").Instantiate(); // Create a new rod item
+				ToolButton rodItem = (ToolButton)GD.Load<PackedScene>("res://Objects/UI/Menus/PrimaryMenu/ToolButton.tscn").Instantiate(); // Create a new rod item
 				rodItem.ToolId = item;
 				var tool = (Godot.Collections.Dictionary)_toolData.ToolDict[rodItem.ToolId];
 				rodItem.Name = (String)tool["name"];

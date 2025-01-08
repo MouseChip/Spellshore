@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxej3oeeerevn"]
 
-[ext_resource type="Script" path="res://Objects/UI/Menus/ToolButton.cs" id="1_ongsp"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/ToolButton.cs" id="1_ongsp"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ttwhg"]
 

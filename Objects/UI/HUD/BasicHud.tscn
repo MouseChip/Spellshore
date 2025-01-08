@@ -19,9 +19,9 @@
 [ext_resource type="Script" path="res://Objects/UI/Menus/PrimaryMenu/PauseMenu.cs" id="16_eg1c2"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexMenu.cs" id="17_yqvtp"]
 [ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="18_yrls0"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageLogic.cs" id="20_588pp"]
 [ext_resource type="PackedScene" uid="uid://djx0mcaclnd7p" path="res://Objects/UI/Menus/Findex/FindexFishCont.tscn" id="20_dcqpw"]
-[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageFlip.cs" id="20_rk7mb"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageCont.cs" id="21_a1ki4"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexAreaButton.cs" id="23_mfxo2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -749,7 +749,57 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_evlgn")
 
-[node name="FdLeftPage" type="TextureRect" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu", "_fishCont1", "_fishCont2")]
+[node name="TabBut1" type="Button" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu")]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -410.0
+offset_right = -580.0
+offset_bottom = -360.0
+theme_override_font_sizes/font_size = 25
+text = "Area 1"
+script = ExtResource("23_mfxo2")
+_findexMenu = NodePath("..")
+_desAreaFilter = "testing_scene_1"
+
+[node name="TabBut2" type="Button" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu")]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -350.0
+offset_right = -580.0
+offset_bottom = -300.0
+theme_override_font_sizes/font_size = 25
+text = "Area 2"
+script = ExtResource("23_mfxo2")
+_findexMenu = NodePath("..")
+_desAreaFilter = "testing_scene_2"
+
+[node name="TabBut3" type="Button" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu")]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -290.0
+offset_right = -580.0
+offset_bottom = -240.0
+theme_override_font_sizes/font_size = 25
+text = "Area 3"
+script = ExtResource("23_mfxo2")
+_findexMenu = NodePath("..")
+_desAreaFilter = "testing_scene_3"
+
+[node name="PageCont" type="Control" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu", "_lFishCont1", "_lFishCont2", "_rFishCont1", "_rFishCont2", "_lFlipCol", "_rFlipCol")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("21_a1ki4")
+_findexMenu = NodePath("..")
+_lFishCont1 = NodePath("FdLeftPage/FishCont")
+_lFishCont2 = NodePath("FdLeftPage/FishCont2")
+_rFishCont1 = NodePath("FdRightPage/FishCont")
+_rFishCont2 = NodePath("FdRightPage/FishCont2")
+_lFlipCol = NodePath("FdLeftPage/PageFlip")
+_rFlipCol = NodePath("FdRightPage/PageFlip")
+
+[node name="FdLeftPage" type="TextureRect" parent="FindexMenu/PageCont"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -763,32 +813,25 @@ offset_bottom = 430.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
-script = ExtResource("20_588pp")
-_findexMenu = NodePath("..")
-_fishCont1 = NodePath("FishCont")
-_fishCont2 = NodePath("FishCont2")
 
-[node name="FishCont" parent="FindexMenu/FdLeftPage" instance=ExtResource("20_dcqpw")]
+[node name="FishCont" parent="FindexMenu/PageCont/FdLeftPage" instance=ExtResource("20_dcqpw")]
 layout_mode = 1
 offset_right = 658.0
 
-[node name="FishCont2" parent="FindexMenu/FdLeftPage" instance=ExtResource("20_dcqpw")]
+[node name="FishCont2" parent="FindexMenu/PageCont/FdLeftPage" instance=ExtResource("20_dcqpw")]
 layout_mode = 1
 offset_top = 450.0
 offset_right = 658.0
 offset_bottom = 840.0
 
-[node name="LeftPageFlip" type="Area2D" parent="FindexMenu/FdLeftPage" node_paths=PackedStringArray("_findexMenu")]
+[node name="PageFlip" type="Area2D" parent="FindexMenu/PageCont/FdLeftPage"]
 position = Vector2(10, 850)
-script = ExtResource("20_rk7mb")
-_findexMenu = NodePath("../..")
-_incrementVal = -4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdLeftPage/LeftPageFlip"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/PageCont/FdLeftPage/PageFlip"]
 position = Vector2(21, -21)
 polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
 
-[node name="FdRightPage" type="TextureRect" parent="FindexMenu" node_paths=PackedStringArray("_findexMenu", "_fishCont1", "_fishCont2")]
+[node name="FdRightPage" type="TextureRect" parent="FindexMenu/PageCont"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -802,77 +845,24 @@ offset_bottom = 430.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
-script = ExtResource("20_588pp")
-_findexMenu = NodePath("..")
-_fishCont1 = NodePath("FishCont")
-_fishCont2 = NodePath("FishCont2")
-_pageStartVal = 2
 
-[node name="FishCont" parent="FindexMenu/FdRightPage" instance=ExtResource("20_dcqpw")]
+[node name="FishCont" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("20_dcqpw")]
 layout_mode = 1
 offset_left = 20.0
 offset_right = 528.0
 
-[node name="FishCont2" parent="FindexMenu/FdRightPage" instance=ExtResource("20_dcqpw")]
+[node name="FishCont2" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("20_dcqpw")]
 layout_mode = 1
 offset_left = 20.0
 offset_top = 450.0
 offset_right = 528.0
 offset_bottom = 840.0
 
-[node name="RightPageFlip" type="Area2D" parent="FindexMenu/FdRightPage" node_paths=PackedStringArray("_findexMenu")]
-position = Vector2(570, 850)
+[node name="PageFlip" type="Area2D" parent="FindexMenu/PageCont/FdRightPage"]
+position = Vector2(571, 850)
 rotation = 3.14159
 scale = Vector2(1, -1)
-script = ExtResource("20_rk7mb")
-_findexMenu = NodePath("../..")
-_incrementVal = 4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/FdRightPage/RightPageFlip"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/PageCont/FdRightPage/PageFlip"]
 position = Vector2(21, -21)
 polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
-
-[node name="TabBut1" type="Button" parent="FindexMenu"]
-layout_mode = 0
-offset_left = -680.0
-offset_top = -410.0
-offset_right = -580.0
-offset_bottom = -360.0
-theme_override_font_sizes/font_size = 25
-text = "Area 1"
-
-[node name="TabBut2" type="Button" parent="FindexMenu"]
-layout_mode = 0
-offset_left = -680.0
-offset_top = -350.0
-offset_right = -580.0
-offset_bottom = -300.0
-theme_override_font_sizes/font_size = 25
-text = "Area 2"
-
-[node name="TabBut3" type="Button" parent="FindexMenu"]
-layout_mode = 0
-offset_left = -680.0
-offset_top = -290.0
-offset_right = -580.0
-offset_bottom = -240.0
-theme_override_font_sizes/font_size = 25
-text = "Area 3"
-
-[node name="TabBut4" type="Button" parent="FindexMenu"]
-layout_mode = 0
-offset_left = 620.0
-offset_top = -230.0
-offset_right = 720.0
-offset_bottom = -180.0
-theme_override_font_sizes/font_size = 25
-text = "Area 4"
-
-[node name="TabBut5" type="Button" parent="FindexMenu"]
-layout_mode = 0
-offset_left = 620.0
-offset_top = -170.0
-offset_right = 720.0
-offset_bottom = -120.0
-theme_override_font_sizes/font_size = 25
-text = "Area 5"
