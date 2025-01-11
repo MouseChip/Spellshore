@@ -23,15 +23,14 @@ public partial class FindexSetInfo : HBoxContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		VisibilityChanged += SetInfo;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
-
-	private void SetInfo() {
+	
+	public void SetInfo() {
 		if (Visible && _fishData.FishDict.ContainsKey(FishId)) {
 			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[FishId];
 			_isDiscovered = (int)fish["caught"] > 0 ? true : false; // If the amount of this fish caught is greater than 0, then the fish has been discovered.
@@ -67,7 +66,7 @@ public partial class FindexSetInfo : HBoxContainer
 			var fishAttacks = (Godot.Collections.Array)fish["attacks"];
 
 			foreach (string attack in fishAttacks) { // For each attack that the fish can perform...
-				foreach (string rune in _runeData.RunesDict.Keys) { // For each rune...
+				foreach (int rune in _runeData.RunesDict.Keys) { // For each rune...
 					var dictRune = (Godot.Collections.Dictionary)_runeData.RunesDict[rune]; // Store that rune
 					var runeAttacks = (Godot.Collections.Array)dictRune["attacks"];  // Get the attacks that the rune defends against
 					if (runeAttacks.Contains(attack) && !fishRunes.Contains(rune)) fishRunes.Add(rune); // If the rune defends against the fish attack, store it
@@ -88,6 +87,7 @@ public partial class FindexSetInfo : HBoxContainer
 				else runeImg.Modulate = new Color(0, 0, 0); // Otherwise, display the default image
 				_runesCont.AddChild(newRune); // Add the rune object to the rune container
 			}
+
 		} else if (!_fishData.FishDict.ContainsKey(FishId)) {
 			Visible = false;
 		}

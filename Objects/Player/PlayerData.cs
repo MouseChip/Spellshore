@@ -5,11 +5,11 @@ public partial class PlayerData : Resource
 {
     public Vector2 PlayerDir;
     public Godot.Collections.Dictionary PlayerInventory = new Godot.Collections.Dictionary {
-        {"rods", new Godot.Collections.Array{"r0", "r1", "r2"}},
-        {"wands", new Godot.Collections.Array{"w0", "w1"}},
-        {"bait", new Godot.Collections.Array{"b0", "b1", "b2", "b3", "b4"}},
+        {"rods", new Godot.Collections.Array{1, 2, 3}},
+        {"wands", new Godot.Collections.Array{1, 2}},
+        {"bait", new Godot.Collections.Array{1, 2, 3, 4, 5}},
         {"fish", new Godot.Collections.Array()},
-        {"runes", new Godot.Collections.Array{"u0", "u1"}}
+        {"runes", new Godot.Collections.Array{1, 2}}
     };
     public String PlayerHemisphere = "south";
     public bool IsCasting = false;

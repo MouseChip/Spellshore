@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=3 uid="uid://binaudnxd2lwb"]
+
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexSetInfo.cs" id="1_l550p"]
+[ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_dmn7u"]
+[ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="3_mhuc0"]
+[ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="4_iia7y"]
+[ext_resource type="PackedScene" uid="uid://c8w6xrhn6r1i0" path="res://Objects/UI/Menus/Findex/FindexRune.tscn" id="5_8olge"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/CentreGrid.cs" id="6_3pnd3"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_t0o4u"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_mpd2g"]
+
+[node name="FishCont" type="HBoxContainer" node_paths=PackedStringArray("_fishPhoto", "_pbText", "_pbStar", "_fishName", "_fishDif", "_fishRar", "_fishDesc", "_runesCont")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l550p")
+_playerData = ExtResource("2_dmn7u")
+_fishData = ExtResource("3_mhuc0")
+_runeData = ExtResource("4_iia7y")
+_fishPhoto = NodePath("RightHalf/FishPhoto")
+_pbText = NodePath("RightHalf/PBCont/PB")
+_pbStar = NodePath("RightHalf/PBCont/PBStar")
+_fishName = NodePath("LeftHalf/Name")
+_fishDif = NodePath("LeftHalf/StatCont/Difficulty")
+_fishRar = NodePath("LeftHalf/StatCont/Rarity")
+_fishDesc = NodePath("LeftHalf/MarginContainer/Description")
+_runesCont = NodePath("LeftHalf/ScrollContainer/RunesCont")
+_runeObj = ExtResource("5_8olge")
+
+[node name="LeftHalf" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Name" type="RichTextLabel" parent="LeftHalf"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Fish XXX"
+
+[node name="StatCont" type="HBoxContainer" parent="LeftHalf"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="Difficulty" type="RichTextLabel" parent="LeftHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Dif: XXX"
+
+[node name="Rarity" type="RichTextLabel" parent="LeftHalf/StatCont"]
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "Rar: XXX"
+
+[node name="MarginContainer" type="MarginContainer" parent="LeftHalf"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Description" type="RichTextLabel" parent="LeftHalf/MarginContainer"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Generic fish description goes here, then time and weather, also mention bait. Filling out space until I hit the bottom, foo bar baz. Lorem ipsum dolor sit amet, every so slightly more, done."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LeftHalf"]
+custom_minimum_size = Vector2(254, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RunesCont" type="Control" parent="LeftHalf/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("6_3pnd3")
+_cellSize = 80
+_totalWidth = 254
+_horSeparator = 7
+
+[node name="RightHalf" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FishPhoto" type="TextureRect" parent="RightHalf"]
+modulate = Color(1, 0.05, 0.05, 1)
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+texture = SubResource("CanvasTexture_t0o4u")
+
+[node name="PBCont" type="HBoxContainer" parent="RightHalf"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="PB" type="RichTextLabel" parent="RightHalf/PBCont"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "PB: XXXX cm"
+
+[node name="PBStar" type="TextureRect" parent="RightHalf/PBCont"]
+modulate = Color(0.91, 0.273, 0, 1)
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+texture = SubResource("CanvasTexture_mpd2g")

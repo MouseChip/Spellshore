@@ -5,19 +5,18 @@ public partial class FindexMenu : Control
 {
 	[Signal] public delegate void PageTurnEventHandler();
 
-	[Export] public int CurFishId {
-		get => _curFishId;
-		set {
-			if (value > 0 && value < _fishData.FishDict.Count) { // If the value does not go beyond the bounds of the book...
-				_curFishId = value; // Set the page value
-				EmitSignal(SignalName.PageTurn); // Turn the page
-			}
-			GD.Print(_curFishId);
-		}
-	}
 	[Export] private FishData _fishData;
 
 	public Godot.Collections.Dictionary FirstLocationFish; // Stores the id of the first fish for each location
+	public int CurFishId {
+		get => _curFishId;
+		set {
+			if (value > 0 && value <= _fishData.FishDict.Count) { // If the value does not go beyond the bounds of the book...
+				_curFishId = value; // Set the page value
+				EmitSignal(SignalName.PageTurn); // Turn the page
+			}
+		}
+	}
 
 	private int _curFishId = 1;
 
@@ -25,12 +24,16 @@ public partial class FindexMenu : Control
 	public override void _Ready()
 	{
 		FirstLocationFish = RetrieveLocIds(); // Retrieve the ids of the first fish for each location
-		VisibilityChanged += () => EmitSignal(SignalName.PageTurn);
+		VisibilityChanged += MenuOpened; // When the menu is opened, emit the page turn signal
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	private void MenuOpened() {
+		if (Visible) EmitSignal(SignalName.PageTurn);
 	}
 
 	private Godot.Collections.Dictionary RetrieveLocIds() {

@@ -16,9 +16,13 @@ public partial class ToolDetails : HBoxContainer
 		_invParent.InvPopulated += GetInvButs;
 	}
 
-	private void SetItemDesc(String ToolId) {
-		var _storedTool = (Godot.Collections.Dictionary)_toolData.ToolDict[ToolId]; // Get the stored tool
-		_toolInfo.Text = (String)_storedTool["desc"]; // Set the description text
+	private void SetItemDesc(int ToolId, string ToolType) {
+		Godot.Collections.Dictionary _storedTool = new Godot.Collections.Dictionary();
+
+		if (ToolType == "rods") _storedTool = (Godot.Collections.Dictionary)_toolData.RodsDict[ToolId];
+		else if (ToolType == "wands") _storedTool = (Godot.Collections.Dictionary)_toolData.WandsDict[ToolId];
+		
+		_toolInfo.Text = (string)_storedTool["desc"]; // Set the description text
 
 		foreach (RichTextLabel stat in _toolStats.GetChildren()) { // For each stat...
 			stat.Text = $"{stat.Name}: {_storedTool[stat.Name.ToString().ToLower()]}"; // Set the stat value
@@ -27,7 +31,7 @@ public partial class ToolDetails : HBoxContainer
 
 	private void GetInvButs() {
 		foreach (ToolButton item in _invItems.GetChildren()) { // For each tool in the inventory...
-			item.ToolPressed += () => SetItemDesc(item.ToolId); // Set the tool description when clicked
+			item.ToolPressed += () => SetItemDesc(item.ToolId, item.ToolType); // Set the tool description when clicked
 		}
 	}
 }

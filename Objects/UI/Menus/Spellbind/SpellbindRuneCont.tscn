@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cieiipe6ephn5"]
+
+[ext_resource type="Script" path="res://Objects/UI/Menus/Spellbind/SpellbindRuneCont.cs" id="1_e28li"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Findex/CentreGrid.cs" id="2_fa83p"]
+[ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_os7gg"]
+[ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="3_ajatg"]
+[ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="4_8ygrv"]
+[ext_resource type="PackedScene" uid="uid://dbrp1rk1x8qc6" path="res://Objects/UI/Menus/Spellbind/SpellbindFish.tscn" id="5_kjopd"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4pce2"]
+
+[node name="RuneCont" type="VBoxContainer" node_paths=PackedStringArray("_runeName", "_runePhoto", "_runeDesc", "_fishCont")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -290.0
+offset_right = 290.0
+offset_bottom = 79.0
+grow_horizontal = 2
+script = ExtResource("1_e28li")
+_playerData = ExtResource("2_os7gg")
+_fishData = ExtResource("3_ajatg")
+_runeData = ExtResource("4_8ygrv")
+_runeName = NodePath("RuneName")
+_runePhoto = NodePath("RuneImage")
+_runeDesc = NodePath("RuneDesc")
+_fishCont = NodePath("ScrollContainer/FishCont")
+_fishObj = ExtResource("5_kjopd")
+
+[node name="RuneName" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(580, 75)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "[center]RUNE XXX[/center]"
+
+[node name="RuneImage" type="TextureRect" parent="."]
+modulate = Color(1, 0.18, 0.18, 1)
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+texture = SubResource("CanvasTexture_4pce2")
+
+[node name="RuneDesc" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(580, 170)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]This is a basic rune description that won't really say much. Real descriptions will likely start with some sort of joke-sentence thing before becoming an actual description of the rune.[/center]"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(420, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FishCont" type="Control" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_fa83p")
+_cellSize = 70
+_totalWidth = 420
+_horSeparator = 15

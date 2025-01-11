@@ -51,6 +51,7 @@ public partial class FindexPageCont : Control
 			var fishCont = (FindexSetInfo)_fishConts[i]; // Get the fish container
 			fishCont.FishId = fishContId; // Set the fish id
 			fishCont.Visible = true; // Display the fish container
+			fishCont.SetInfo(); // Set the fish container's information
 			_fishDisplayed++;
 		}
 
@@ -82,30 +83,7 @@ public partial class FindexPageCont : Control
 
 						_findexMenu.CurFishId -= prevPageCount;
 					}
-
-					/* foreach (var locKeyVal in _findexMenu.FirstLocationFish) { // For each fish in the dictionary of first fish for each location...
-						if ((int)locKeyVal.Value != _findexMenu.CurFishId) { // If the current fish id is not a location transition...
-							_findexMenu.CurFishId -= _fishConts.Count; // Decrement the fish by the number of fish containers (4)
-						} else { // Otherwise...
-							var fishLocIds = (Godot.Collections.Array)_findexMenu.FirstLocationFish.Values; // Get the values of the dictionary
-							var valInd = fishLocIds.IndexOf(locKeyVal.Value); // Get the index of the current fish id
-							int prevPageCount = 0;
-							if (valInd > 0) { // If this is not the first location transition...
-								// Get the number of fish containers on the previous page 
-								// by finding the number of fish that in between the two location transitions 
-								// and then dividing by four (the number of fish per page) to get the number of pages,
-								// with the remainder being representative of the number of fish on the previous page
-								prevPageCount = ((int)locKeyVal.Value - (int)fishLocIds[valInd - 1]) % _fishConts.Count;
-
-								if (prevPageCount == 0) prevPageCount = 4; // If the result was 0, then the number of fish on the previous page is 4
-							}
-
-							_findexMenu.CurFishId -= prevPageCount;
-						}
-					} */
 				}
-				SetFishConts();
-
 			}
 		}
 	}

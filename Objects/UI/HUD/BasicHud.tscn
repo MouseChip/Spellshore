@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=40 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/BasicHud.cs" id="1_mcm2d"]
@@ -21,7 +21,12 @@
 [ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="18_yrls0"]
 [ext_resource type="PackedScene" uid="uid://djx0mcaclnd7p" path="res://Objects/UI/Menus/Findex/FindexFishCont.tscn" id="20_dcqpw"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexPageCont.cs" id="21_a1ki4"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Spellbind/SpellbindMenu.cs" id="23_dyura"]
+[ext_resource type="PackedScene" uid="uid://binaudnxd2lwb" path="res://Objects/UI/Menus/Findex/RightFishCont.tscn" id="23_hakxp"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexAreaButton.cs" id="23_mfxo2"]
+[ext_resource type="Script" path="res://Objects/UI/Menus/Spellbind/SpellbindPageCont.cs" id="24_l15ba"]
+[ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="25_76vpn"]
+[ext_resource type="PackedScene" uid="uid://cieiipe6ephn5" path="res://Objects/UI/Menus/Spellbind/SpellbindRuneCont.tscn" id="27_ivxfo"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -176,7 +181,7 @@ script = ExtResource("4_kk3aa")
 _menuCont = NodePath("../../FindexMenu")
 _inputName = "uiFindex"
 
-[node name="SpellbindButton" type="Button" parent="TopLeftButtons"]
+[node name="SpellbindButton" type="Button" parent="TopLeftButtons" node_paths=PackedStringArray("_menuCont")]
 modulate = Color(0.15, 1, 0, 1)
 layout_mode = 0
 offset_left = 60.0
@@ -186,6 +191,9 @@ offset_bottom = 180.0
 theme_override_font_sizes/font_size = 10
 text = "Spellbind"
 icon = SubResource("CanvasTexture_362vq")
+script = ExtResource("4_kk3aa")
+_menuCont = NodePath("../../SpellbindMenu")
+_inputName = "uiSpellbind"
 
 [node name="Pause" type="Control" parent="."]
 layout_mode = 1
@@ -424,14 +432,14 @@ theme_override_font_sizes/normal_font_size = 20
 custom_minimum_size = Vector2(500, 75)
 layout_mode = 2
 
-[node name="IntelligenceLabel" type="RichTextLabel" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
+[node name="Intelligence" type="RichTextLabel" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
 custom_minimum_size = Vector2(375, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 
-[node name="PowerLabel" type="RichTextLabel" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
+[node name="Power" type="RichTextLabel" parent="PrimaryMenu/MenuTabCont/InvTabBar/InventoryMenu/InvCont/InvContent/WandsCont/WandInvCont/WandDetailsCont/VBoxContainer/StatsCont"]
 custom_minimum_size = Vector2(375, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -846,17 +854,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_tuh1q")
 
-[node name="FishCont" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("20_dcqpw")]
-layout_mode = 1
+[node name="FishCont" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("23_hakxp")]
+layout_mode = 0
 offset_left = 20.0
+offset_top = 20.0
 offset_right = 528.0
+offset_bottom = 390.0
 
-[node name="FishCont2" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("20_dcqpw")]
-layout_mode = 1
+[node name="FishCont2" parent="FindexMenu/PageCont/FdRightPage" instance=ExtResource("23_hakxp")]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 450.0
 offset_right = 528.0
-offset_bottom = 840.0
+offset_bottom = 820.0
 
 [node name="PageFlip" type="Area2D" parent="FindexMenu/PageCont/FdRightPage"]
 position = Vector2(571, 850)
@@ -864,5 +874,115 @@ rotation = 3.14159
 scale = Vector2(1, -1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FindexMenu/PageCont/FdRightPage/PageFlip"]
+position = Vector2(21, -21)
+polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
+[node name="SpellbindMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("23_dyura")
+_runeData = ExtResource("25_76vpn")
+
+[node name="SpellbindBack" type="TextureRect" parent="SpellbindMenu"]
+modulate = Color(0.268954, 0.1389, 0.0826344, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.0
+offset_top = -450.0
+offset_right = 625.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_evlgn")
+
+[node name="PageCont" type="Control" parent="SpellbindMenu" node_paths=PackedStringArray("_spellbindMenu", "_lRune", "_rRune", "_lFlipCol", "_rFlipCol")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("24_l15ba")
+_spellbindMenu = NodePath("..")
+_lRune = NodePath("LeftPage/RuneCont")
+_rRune = NodePath("RightPage/RuneCont")
+_lFlipCol = NodePath("LeftPage/PageFlip")
+_rFlipCol = NodePath("RightPage/PageFlip")
+
+[node name="LeftPage" type="TextureRect" parent="SpellbindMenu/PageCont"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -430.0
+offset_right = -20.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_tuh1q")
+
+[node name="RuneCont" parent="SpellbindMenu/PageCont/LeftPage" instance=ExtResource("27_ivxfo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 580.0
+grow_horizontal = 1
+
+[node name="PageFlip" type="Area2D" parent="SpellbindMenu/PageCont/LeftPage"]
+position = Vector2(10, 850)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpellbindMenu/PageCont/LeftPage/PageFlip"]
+position = Vector2(21, -21)
+polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
+[node name="RightPage" type="TextureRect" parent="SpellbindMenu/PageCont"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -430.0
+offset_right = 600.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_tuh1q")
+
+[node name="RuneCont" parent="SpellbindMenu/PageCont/RightPage" instance=ExtResource("27_ivxfo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 580.0
+grow_horizontal = 1
+
+[node name="PageFlip" type="Area2D" parent="SpellbindMenu/PageCont/RightPage"]
+position = Vector2(571, 850)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpellbindMenu/PageCont/RightPage/PageFlip"]
 position = Vector2(21, -21)
 polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)

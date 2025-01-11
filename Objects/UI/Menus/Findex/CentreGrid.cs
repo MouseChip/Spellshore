@@ -2,9 +2,9 @@ using Godot;
 
 public partial class CentreGrid : Control
 {
-	private int _cellSize = 80; // Size of each cell
-    private int _totalWidth = 254; // Total width of the grid (including horizontal separator values)
-	private int _horSeparator = 7; // Horizontal separator value
+	[Export] private int _cellSize; // Size of each cell
+    [Export] private int _totalWidth; // Total width of the grid (including horizontal separator values)
+	[Export] private int _horSeparator; // Horizontal separator value
 
     public override void _Ready()
     {
@@ -20,8 +20,12 @@ public partial class CentreGrid : Control
         int childCount = children.Count; // Count the children
         if (childCount == 0) return; // If there are no children, return
 
-        float totalChildrenWidth = childCount * _cellSize;  // The total width of the children, found by multiplying the width of a child by the number of children
-        float startX = (_totalWidth - totalChildrenWidth) / 2.0f; // Find the starting position from the centre by taking the distance between the two widths and halving it (i.e. creating equal margins on either side of the grid)
+        float totalChildrenWidth = childCount * (_cellSize + _horSeparator);  // The total width of the children, found by multiplying the width of a child by the number of children
+
+        CustomMinimumSize = new Vector2(totalChildrenWidth, Size.Y); // Set the minimum size of the grid to fit children exactly
+
+        // Calculate the starting position to center children within the visible area
+        float startX = Mathf.Max((_totalWidth - totalChildrenWidth) / 2.0f, 0); // Find the start position, either by ensuring there are equal margins on both sides of the grid or by setting the start position to 0 if the grid is too small
 
         // Position each child
         for (int i = 0; i < children.Count; i++) { // For each child
