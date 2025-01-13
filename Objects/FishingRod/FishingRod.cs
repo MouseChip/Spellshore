@@ -74,20 +74,29 @@ public partial class FishingRod : Node2D
 	private void OnReelTimeout() {
 		bool inWater = _bobber.CheckWater(); // Check if the bobber is in water
 
-		if (inWater) OnBobberWater(); // If the player didn't reel in their rod, start the timer for the next fish
+		if (inWater) { // If the player didn't reel in their rod...
+			OnBobberWater(); // Start the timer for the next fish
+			_reelTimer.Stop();
+		}
 	}
 
 	private void OnHook() {
 		HookedFish = 0; // Reset the fish on the hook
 		
 		var sceneData = GD.Load<TestSceneData>($"res://Scenes/SceneData/{GetTree().Root.GetNode("main").GetChild(0).Name}Data.tres");
-		var sceneFish = sceneData.PotentialFish;
+		//var sceneFish = sceneData.PotentialFish;
+		var potentialFish = new Godot.Collections.Array();
 		var availableFish = new Godot.Collections.Array();
+
+		foreach (int fishId in _fishData.FishDict.Keys) {
+			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[fishId];
+			if ((string)fish["scene"] == GetTree().Root.GetNode("main").GetChild(0).Name) potentialFish.Add(fishId);
+		}
 
 		#region Fish availability logic
 
-		for (int i = 0; i < sceneFish.Count; i++) { // For each fish...
-			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[sceneFish[i]]; // Get the specific fish
+		for (int i = 0; i < potentialFish.Count; i++) { // For each fish...
+			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[potentialFish[i]]; // Get the specific fish
 			var fishSource = (Godot.Collections.Array)fish["source"]; // Get the fish's water sources
 			
 			if (fishSource.Contains("all") || fishSource.Contains(_bobber.BobberSource)) { // If the bobber was cast in a place where the fish is available...
@@ -106,7 +115,7 @@ public partial class FishingRod : Node2D
 					}
 
 					if (fishActive) { // If the fish is active...
-						availableFish.Add(i); // Add the fish's id to the available fish array
+						availableFish.Add(potentialFish[i]); // Add the fish's id to the available fish array
 					}
 				}
 			}

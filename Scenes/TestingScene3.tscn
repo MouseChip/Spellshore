@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dodqmw7jetbx1"]
+
+[ext_resource type="Script" path="res://Objects/RuneCanvas/MouseCanvas.cs" id="1_jrfpd"]
+
+[node name="TestingScene3" type="Node2D"]
+
+[node name="MouseCanvas" type="Node2D" parent="."]
+script = ExtResource("1_jrfpd")

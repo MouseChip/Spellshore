@@ -56,6 +56,9 @@ public partial class SetClock : Control
 		} else if ((int)systemTime["hour"] >= 12) { // Otherwise, if it is an afternoon hour...
 			stringTime = $"0{(int)systemTime["hour"]-12}:{stringMinute}"; // Set the time
 			_isAm = false; // It is afternoon
+		} else if ((int)systemTime["hour"] == 12) { // Otherwise, if it is the twelfth hour...
+			stringTime = $"12:{stringMinute}"; // Set the time
+			_isAm = false; // It is afternoon
 		}
 
 		return stringTime;
