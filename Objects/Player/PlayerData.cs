@@ -9,7 +9,7 @@ public partial class PlayerData : Resource
         {"wands", new Godot.Collections.Array{1, 2}},
         {"bait", new Godot.Collections.Array{1, 2, 3, 4, 5}},
         {"fish", new Godot.Collections.Array()},
-        {"runes", new Godot.Collections.Array{1, 2}}
+        {"runes", new Godot.Collections.Array{1, 2, 3, 4, 5}}
     };
     public String PlayerHemisphere = "south";
     public bool IsCasting = false;
