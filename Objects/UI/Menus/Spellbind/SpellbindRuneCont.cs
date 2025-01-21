@@ -1,11 +1,13 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class SpellbindRuneCont : VBoxContainer
 {
 	[Export] private PlayerData _playerData;
 	[Export] private FishData _fishData;
 	[Export] private RuneData _runeData;
+	[Export] private AttackData _attackData;
 	[Export] private RichTextLabel _runeName;
 	[Export] private TextureRect _runePhoto;
 	[Export] private RichTextLabel _runeDesc;
@@ -49,8 +51,14 @@ public partial class SpellbindRuneCont : VBoxContainer
 			}
 
 			// Find all fish that can be attacked with this rune
+			var runeAttacks = new Godot.Collections.Array();
+			foreach (string attackName in _attackData.AttackDict.Keys) {
+				var attack = (Godot.Collections.Dictionary)_attackData.AttackDict[attackName];
+				if (((Godot.Collections.Array)attack["runes"]).Contains(RuneId)) runeAttacks.Add(attackName);
+			}
+			
 			var runeFish = new Godot.Collections.Array();
-			foreach (string attack in (Godot.Collections.Array)rune["attacks"]) {
+			foreach (string attack in runeAttacks) {
 				foreach (var fishId in _fishData.FishDict.Keys) {
 					var fish = (Godot.Collections.Dictionary)_fishData.FishDict[fishId];
 					var fishAttacks = (Godot.Collections.Array)fish["attacks"];
@@ -68,9 +76,7 @@ public partial class SpellbindRuneCont : VBoxContainer
 				TextureRect fishImg = (TextureRect)newFish.GetChild(0);
 
 				var fish = (Godot.Collections.Dictionary)_fishData.FishDict[fishId];
-				if ((int)fish["caught"] > 0) fishImg.Modulate = new Color(0.91f, 0.86f, 0.35f); // If the player has caught  the fish, display its image
-				else fishImg.Modulate = new Color(0, 0, 0); // Otherwise, display the default image
-				_fishCont.AddChild(newFish); // Add the fish object to the fish container
+				if ((int)fish["caught"] > 0) _fishCont.AddChild(newFish); // Add the fish object to the fish container
 			}
 
 		} else if (!_runeData.RunesDict.ContainsKey(RuneId)) {

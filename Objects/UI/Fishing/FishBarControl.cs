@@ -4,6 +4,7 @@ using System;
 public partial class FishBarControl : RigidBody2D
 {
 	[Export] private CatchingFish _hookedFish;
+	[Export] private AttackObject _attackObject;
 
 	public float barSpeed = 500;
 	public float barBuff = 0;
@@ -23,7 +24,7 @@ public partial class FishBarControl : RigidBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-		if (_hookedFish.secCount < 10) {
+		if (_hookedFish.secCount < 10 && !_attackObject.CanDraw) {
 			Vector2 newVel = LinearVelocity; // The new linear velocity
 
 			if (Input.IsActionPressed("fishButton")) { // If the player is clicking (or performing the binded action)...

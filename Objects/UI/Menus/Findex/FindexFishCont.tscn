@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djx0mcaclnd7p"]
+[gd_scene load_steps=10 format=3 uid="uid://djx0mcaclnd7p"]
 
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexSetInfo.cs" id="1_42d1j"]
 [ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_3q7an"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="2_dmjf2"]
 [ext_resource type="PackedScene" uid="uid://c8w6xrhn6r1i0" path="res://Objects/UI/Menus/Findex/FindexRune.tscn" id="3_8y5v8"]
 [ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="3_kft7y"]
+[ext_resource type="Resource" uid="uid://dlbmgc3mmvqb" path="res://Data/AttackData.tres" id="5_phssc"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_u0j64"]
 
@@ -21,6 +22,7 @@ script = ExtResource("1_42d1j")
 _playerData = ExtResource("2_3q7an")
 _fishData = ExtResource("2_dmjf2")
 _runeData = ExtResource("3_kft7y")
+_attackData = ExtResource("5_phssc")
 _fishPhoto = NodePath("LeftHalf/FishPhoto")
 _pbText = NodePath("LeftHalf/PBCont/PB")
 _pbStar = NodePath("LeftHalf/PBCont/PBStar")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cieiipe6ephn5"]
+[gd_scene load_steps=9 format=3 uid="uid://cieiipe6ephn5"]
 
 [ext_resource type="Script" path="res://Objects/UI/Menus/Spellbind/SpellbindRuneCont.cs" id="1_e28li"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/CentreGrid.cs" id="2_fa83p"]
 [ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_os7gg"]
 [ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="3_ajatg"]
 [ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="4_8ygrv"]
+[ext_resource type="Resource" uid="uid://dlbmgc3mmvqb" path="res://Data/AttackData.tres" id="5_1uhnr"]
 [ext_resource type="PackedScene" uid="uid://dbrp1rk1x8qc6" path="res://Objects/UI/Menus/Spellbind/SpellbindFish.tscn" id="5_kjopd"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4pce2"]
@@ -21,6 +22,7 @@ script = ExtResource("1_e28li")
 _playerData = ExtResource("2_os7gg")
 _fishData = ExtResource("3_ajatg")
 _runeData = ExtResource("4_8ygrv")
+_attackData = ExtResource("5_1uhnr")
 _runeName = NodePath("RuneName")
 _runePhoto = NodePath("RuneImage")
 _runeDesc = NodePath("RuneDesc")

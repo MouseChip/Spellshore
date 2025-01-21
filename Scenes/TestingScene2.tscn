@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cf75ampj4a6bs"]
+[gd_scene load_steps=17 format=3 uid="uid://cf75ampj4a6bs"]
 
 [ext_resource type="PackedScene" uid="uid://ped84lhv167" path="res://Objects/Player/player.tscn" id="1_mba6o"]
 [ext_resource type="Script" path="res://Objects/UI/Fishing/FishBarControl.cs" id="2_6vgin"]
 [ext_resource type="PackedScene" uid="uid://cowtrdf01y1u8" path="res://Objects/Fish/fish.tscn" id="2_bepvq"]
+[ext_resource type="Script" path="res://Objects/Fish/AttackObject.cs" id="3_3gmxi"]
 [ext_resource type="Script" path="res://Objects/UI/Fishing/CatchingFish.cs" id="3_re1s5"]
+[ext_resource type="Script" path="res://Objects/RuneCanvas/MouseCanvas.cs" id="4_1ej5f"]
 [ext_resource type="Script" path="res://Objects/UI/Fishing/FishProgress.cs" id="6_y4vfu"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ehqjw"]
@@ -39,6 +41,18 @@ scale = Vector2(5, 5)
 
 [node name="Fish" parent="." instance=ExtResource("2_bepvq")]
 
+[node name="Attack" type="Node2D" parent="." node_paths=PackedStringArray("_runeLabel", "_mouseCanvas", "_catchingFish")]
+script = ExtResource("3_3gmxi")
+_runeLabel = NodePath("../Control/AttackRuneGroup/RuneName")
+_mouseCanvas = NodePath("MouseCanvas")
+_catchingFish = NodePath("../Control/FishBarGroup/FishBody")
+
+[node name="AttackTimer" type="Timer" parent="Attack"]
+
+[node name="MouseCanvas" type="Node2D" parent="Attack" node_paths=PackedStringArray("_attackObject")]
+script = ExtResource("4_1ej5f")
+_attackObject = NodePath("..")
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -68,7 +82,7 @@ shape = SubResource("RectangleShape2D_1h706")
 position = Vector2(495.5, 0.5)
 shape = SubResource("RectangleShape2D_1h706")
 
-[node name="FishBarBody" type="RigidBody2D" parent="Control/FishBarGroup" node_paths=PackedStringArray("_hookedFish")]
+[node name="FishBarBody" type="RigidBody2D" parent="Control/FishBarGroup" node_paths=PackedStringArray("_hookedFish", "_attackObject")]
 position = Vector2(720, 800)
 collision_layer = 1024
 collision_mask = 33280
@@ -78,6 +92,7 @@ lock_rotation = true
 custom_integrator = true
 script = ExtResource("2_6vgin")
 _hookedFish = NodePath("../FishBody")
+_attackObject = NodePath("../../../Attack")
 
 [node name="FishBar" type="TextureRect" parent="Control/FishBarGroup/FishBarBody"]
 anchors_preset = 8
@@ -106,7 +121,7 @@ collision_mask = 0
 position = Vector2(-2.5, -2.5)
 shape = SubResource("RectangleShape2D_282px")
 
-[node name="FishBody" type="RigidBody2D" parent="Control/FishBarGroup" node_paths=PackedStringArray("_leftRayCast", "_rightRayCast", "_fishBar")]
+[node name="FishBody" type="RigidBody2D" parent="Control/FishBarGroup" node_paths=PackedStringArray("_attackObject", "_leftRayCast", "_rightRayCast", "_fishBar")]
 position = Vector2(760, 818)
 collision_layer = 0
 collision_mask = 768
@@ -115,6 +130,7 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 3
 script = ExtResource("3_re1s5")
+_attackObject = NodePath("../../../Attack")
 _leftRayCast = NodePath("LeftRayCast")
 _rightRayCast = NodePath("RightRayCast")
 _fishBar = NodePath("../FishBarBody")
@@ -155,3 +171,15 @@ max_value = 10.0
 show_percentage = false
 script = ExtResource("6_y4vfu")
 _hookFishData = NodePath("../FishBarGroup/FishBody")
+
+[node name="AttackRuneGroup" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RuneName" type="RichTextLabel" parent="Control/AttackRuneGroup"]
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 150.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 50

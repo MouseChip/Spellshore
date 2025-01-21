@@ -3,7 +3,12 @@ using System;
 
 public partial class MouseCanvas : Node2D
 {
+	[Signal] public delegate void RuneDrawnEventHandler(int runeId);
+
+	[Export] private AttackObject _attackObject;
+
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
+	private ToolData _toolData = GD.Load<ToolData>("res://Data/ToolData.tres");
 	private RuneData _runeData = GD.Load<RuneData>("res://Data/RuneData.tres");
 	private Godot.Collections.Array _clickPos = new Godot.Collections.Array();
 	private Godot.Collections.Array _drawPos = new Godot.Collections.Array();
@@ -21,14 +26,14 @@ public partial class MouseCanvas : Node2D
 
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion mouseMotion) {
-			if (Input.IsMouseButtonPressed(MouseButton.Left)) {
+			if (Input.IsMouseButtonPressed(MouseButton.Left) && _attackObject.CanDraw) {
 				if (!_isDrawing) _clickPos.Clear();
 				_clickPos.Add(mouseMotion.Position); // If the mouse is being pressed, add the current position to the array
 				_isDrawing = true;
 				QueueRedraw(); // Queue a redraw
 			}
 		} else if (@event is InputEventMouseButton mouseButton) {
-			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsReleased()) {
+			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsReleased() && _attackObject.CanDraw) {
 				_isDrawing = false;
 				DetermineRune();
 			}
@@ -37,17 +42,21 @@ public partial class MouseCanvas : Node2D
 
     public override void _Draw()
     {
-        foreach (Vector2 point in _clickPos) {
-			DrawCircle(point, 10, new Color(1, 0, 0));
-		}
+		if (_attackObject.CanDraw) {
+			foreach (Vector2 point in _clickPos) {
+				DrawCircle(point, 10, new Color(1, 0, 0));
+			}
 
-		foreach (Vector2 point in _drawPos) {
-			DrawCircle(point, 10, new Color(0, 1, 0));
+			foreach (Vector2 point in _drawPos) {
+				DrawCircle(point, 10, new Color(0, 1, 0));
+			}
 		}
     }
 
 	private void DetermineRune() {
 		GD.Print("Click positions: ", _clickPos);
+
+		if (_clickPos.Count < 3) return; // If there are fewer than 3 points, the path cannot be a rune
 
 		#region Get Turning Points
 
@@ -77,8 +86,6 @@ public partial class MouseCanvas : Node2D
 			var dotProduct = (float)dotProducts[i]; // Get the dot product
 			var roundProd = RoundToNearest(dotProduct, 0.2f); // Round the dot product to the nearest 0.2
 			var lastRoundProd = RoundToNearest((float)dotProducts[i-1], 0.2f); // Round the previous dot product to the nearest 0.2
-			GD.Print(i + "-----");
-			GD.Print(roundProd, lastRoundProd);
 
 			if (roundProd != lastRoundProd) supTurningPoints.Add(_clickPos[i+1]); // If the rounded dot product is different to the previous rounded dot product, add the turning position to the array
 		}
@@ -152,7 +159,10 @@ public partial class MouseCanvas : Node2D
 		GD.Print("Simplified unit points: ", simpUnitPoints);
 
 		float smallestDist = float.MaxValue;
-		float tolerance = 1.5f; // The maximum possible distance for a path to be considered a rune
+
+		float wandIntelligence = (float)((Godot.Collections.Dictionary)_toolData.WandsDict[(int)_playerData.EquippedWand])["intelligence"] / 100; // The intelligence of the equipped wand
+		float tolerance = 0.5f + wandIntelligence; // The maximum possible distance for a path to be considered a rune
+		GD.Print("Tolerance: " + tolerance);
 		int closestRune = 0;
 		foreach (int runeId in (Godot.Collections.Array)_playerData.PlayerInventory["runes"]) {
 			Godot.Collections.Array keys = (Godot.Collections.Array)_runeData.RunesDict.Keys;
@@ -164,22 +174,21 @@ public partial class MouseCanvas : Node2D
 				smallestDist = shapeDistance;
 				closestRune = runeId;
 			}
-			
-			GD.Print("Shape distance: " + shapeDistance);
 		}
 		GD.Print("Smallest distance: " + smallestDist);
 
 		if (smallestDist < tolerance) {
 			GD.Print("Rune found: " + (string)((Godot.Collections.Dictionary)_runeData.RunesDict[closestRune])["name"]);
+			EmitSignal("RuneDrawn", closestRune);
 		} else {
 			GD.Print("No rune found.");
+			EmitSignal("RuneDrawn", -1);
 		}
 
 		#endregion
 		
 		// MARK: DEBUGGING
-		_drawPos = debugPoints;
-		QueueRedraw();
+		_clickPos = _drawPos = new Godot.Collections.Array();
 	}
 
 	private float CompareShapes(Godot.Collections.Array source, Godot.Collections.Array template) {
@@ -196,8 +205,6 @@ public partial class MouseCanvas : Node2D
 			forShapeDist += sourcePoint.DistanceTo(templatePoint); // Add the distance between the two points to the shape distance
 			backShapeDist += sourcePoint.DistanceTo(backTempPoint); // Add the distance between the two points to the shape distance
 		}
-
-		GD.Print(forShapeDist, " / ", backShapeDist);
 
 		float returnDist = Mathf.Min(forShapeDist, backShapeDist); // Return the smallest shape distance
 

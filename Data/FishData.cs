@@ -8,7 +8,7 @@ public partial class FishData : Resource
 	public Godot.Collections.Dictionary FishDict = new Godot.Collections.Dictionary {
 		{1, new Godot.Collections.Dictionary{
 			{"name", "testFish1"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny", "rainy"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -26,7 +26,7 @@ public partial class FishData : Resource
 
 		{2, new Godot.Collections.Dictionary{
 			{"name", "testFish2"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"saltwater"}},
 			{"climate", new Godot.Collections.Array{"sunny", "cloudy"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -44,7 +44,7 @@ public partial class FishData : Resource
 
 		{3, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -62,7 +62,7 @@ public partial class FishData : Resource
 		
 		{4, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -80,7 +80,7 @@ public partial class FishData : Resource
 
 		{5, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -98,7 +98,7 @@ public partial class FishData : Resource
 
 		{6, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -116,7 +116,7 @@ public partial class FishData : Resource
 
 		{7, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -134,7 +134,7 @@ public partial class FishData : Resource
 
 		{8, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -152,7 +152,7 @@ public partial class FishData : Resource
 
 		{9, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -170,7 +170,7 @@ public partial class FishData : Resource
 
 		{10, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -188,7 +188,7 @@ public partial class FishData : Resource
 
 		{11, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -206,7 +206,7 @@ public partial class FishData : Resource
 
 		{12, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -224,7 +224,7 @@ public partial class FishData : Resource
 
 		{13, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_1"},
+			{"scene", "TestingScene1"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -242,7 +242,7 @@ public partial class FishData : Resource
 
 		{14, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -260,7 +260,7 @@ public partial class FishData : Resource
 
 		{15, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -278,7 +278,7 @@ public partial class FishData : Resource
 
 		{16, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -296,7 +296,7 @@ public partial class FishData : Resource
 
 		{17, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -314,7 +314,7 @@ public partial class FishData : Resource
 
 		{18, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -332,7 +332,7 @@ public partial class FishData : Resource
 
 		{19, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -350,7 +350,7 @@ public partial class FishData : Resource
 
 		{20, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -368,7 +368,7 @@ public partial class FishData : Resource
 
 		{21, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -386,7 +386,7 @@ public partial class FishData : Resource
 
 		{22, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -404,7 +404,7 @@ public partial class FishData : Resource
 
 		{23, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_2"},
+			{"scene", "TestingScene2"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -422,7 +422,7 @@ public partial class FishData : Resource
 
 		{24, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_3"},
+			{"scene", "TestingScene3"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -440,7 +440,7 @@ public partial class FishData : Resource
 
 		{26, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_3"},
+			{"scene", "TestingScene3"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -458,7 +458,7 @@ public partial class FishData : Resource
 
 		{25, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_3"},
+			{"scene", "TestingScene3"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},
@@ -476,7 +476,7 @@ public partial class FishData : Resource
 
 		{27, new Godot.Collections.Dictionary{
 			{"name", "testFish3"},
-			{"scene", "testing_scene_3"},
+			{"scene", "TestingScene3"},
 			{"source", new Godot.Collections.Array{"all"}},
 			{"climate", new Godot.Collections.Array{"sunny"}},
 			{"hours", new Godot.Collections.Array{1, 5, 12, 17}},

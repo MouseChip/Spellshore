@@ -52,14 +52,13 @@ public partial class FishingRod : Node2D
 
 	private void OnBobberWater() {
 		// Start the hook timer
-		_hookTimer.WaitTime = GD.RandRange(1, 30);
+		_hookTimer.WaitTime = GD.RandRange(1, 5);  // MARK: DEBUGGING
 		_hookTimer.Start();
 		GD.Print(_hookTimer.WaitTime);
 	}
 
 	private void OnReelIn() {
 		if (_hookTimer.TimeLeft == 0 && _reelTimer.TimeLeft > 0) { // If there is a fish on the hook and it was reeled in on time...
-			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[HookedFish];
 			_fishData.HookedFish = HookedFish;
 
 			GetTree().Root.GetNode("main").AddChild(ResourceLoader.Load<PackedScene>($"res://Scenes/TestingScene2.tscn").Instantiate()); // Add the fishing scene to the main node in the root scene
@@ -171,7 +170,6 @@ public partial class FishingRod : Node2D
 
 			HookedFish = (int)availableFish[i]; // Otherwise, set the hooked fish
 			var fish = (Godot.Collections.Dictionary)_fishData.FishDict[HookedFish];
-			GD.Print(fish);
 			break; // Return
 		}
 

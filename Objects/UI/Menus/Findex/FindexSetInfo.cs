@@ -6,6 +6,7 @@ public partial class FindexSetInfo : HBoxContainer
 	[Export] private PlayerData _playerData;
 	[Export] private FishData _fishData;
 	[Export] private RuneData _runeData;
+	[Export] private AttackData _attackData;
 	[Export] private TextureRect _fishPhoto;
 	[Export] private RichTextLabel _pbText;
 	[Export] private TextureRect _pbStar;
@@ -66,10 +67,8 @@ public partial class FindexSetInfo : HBoxContainer
 			var fishAttacks = (Godot.Collections.Array)fish["attacks"];
 
 			foreach (string attack in fishAttacks) { // For each attack that the fish can perform...
-				foreach (int rune in _runeData.RunesDict.Keys) { // For each rune...
-					var dictRune = (Godot.Collections.Dictionary)_runeData.RunesDict[rune]; // Store that rune
-					var runeAttacks = (Godot.Collections.Array)dictRune["attacks"];  // Get the attacks that the rune defends against
-					if (runeAttacks.Contains(attack) && !fishRunes.Contains(rune)) fishRunes.Add(rune); // If the rune defends against the fish attack, store it
+				foreach (int rune in (Godot.Collections.Array)((Godot.Collections.Dictionary)_attackData.AttackDict[attack])["runes"]) { // For each rune...
+					if (!fishRunes.Contains(rune)) fishRunes.Add(rune); // If the rune defends against the fish attack, store it
 				}
 			}
 

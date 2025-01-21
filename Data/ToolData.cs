@@ -41,21 +41,21 @@ public partial class ToolData : Resource
         {1, new Godot.Collections.Dictionary{
 			{"name", "Basic Wand"},
             {"desc", "Ol' faithful. Can't get much simpler than a piece of driftwood imbued with the spirits of mystical beings and magical powers."},
-            {"intelligence", 15},
+            {"intelligence", 0},
             {"power", 5},
             {"cost", 0}
 		}},
         {2, new Godot.Collections.Dictionary{
 			{"name", "Maple Wand"},
             {"desc", "Slightly more powerful than the basic wand, though not much more intelligent."},
-            {"intelligence", 18},
+            {"intelligence", 50},
             {"power", 8},
             {"cost", 15}
 		}},
         {3, new Godot.Collections.Dictionary{
 			{"name", "Foo Wand"},
             {"desc", "I kinda just needed at least one more wand and was running out of ideas, these aren't even gonna stick around. Shut up."},
-            {"intelligence", 10},
+            {"intelligence", 500},
             {"power", 5},
             {"cost", 25}
 		}}

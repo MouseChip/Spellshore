@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dlbmgc3mmvqb"]
+
+[ext_resource type="Script" path="res://Data/AttackData.cs" id="1_142mb"]
+
+[resource]
+script = ExtResource("1_142mb")

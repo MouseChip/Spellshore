@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://binaudnxd2lwb"]
+[gd_scene load_steps=10 format=3 uid="uid://binaudnxd2lwb"]
 
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/FindexSetInfo.cs" id="1_l550p"]
 [ext_resource type="Resource" uid="uid://c8mpucid167aq" path="res://Objects/Player/playerData.tres" id="2_dmn7u"]
 [ext_resource type="Resource" uid="uid://ch42dps7gdqx2" path="res://Data/FishData.tres" id="3_mhuc0"]
 [ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="4_iia7y"]
 [ext_resource type="PackedScene" uid="uid://c8w6xrhn6r1i0" path="res://Objects/UI/Menus/Findex/FindexRune.tscn" id="5_8olge"]
+[ext_resource type="Resource" uid="uid://dlbmgc3mmvqb" path="res://Data/AttackData.tres" id="5_y7gal"]
 [ext_resource type="Script" path="res://Objects/UI/Menus/Findex/CentreGrid.cs" id="6_3pnd3"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_t0o4u"]
@@ -18,6 +19,7 @@ script = ExtResource("1_l550p")
 _playerData = ExtResource("2_dmn7u")
 _fishData = ExtResource("3_mhuc0")
 _runeData = ExtResource("4_iia7y")
+_attackData = ExtResource("5_y7gal")
 _fishPhoto = NodePath("RightHalf/FishPhoto")
 _pbText = NodePath("RightHalf/PBCont/PB")
 _pbStar = NodePath("RightHalf/PBCont/PBStar")
