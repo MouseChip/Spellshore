@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class SetClock : Control
 {
@@ -10,7 +11,7 @@ public partial class SetClock : Control
 	[Export] private TextureRect _weatherIcon;
 
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/playerData.tres"); // Load the player data
-	private TestSceneData _testSceneData; // Load the player data
+	private MainData _mainData = GD.Load<MainData>("res://Scenes/SceneData/MainData.tres");
 	private Godot.Collections.Dictionary _dayNames = new Godot.Collections.Dictionary{
 		{(int)Time.Weekday.Monday, "Mon"},
 		{(int)Time.Weekday.Tuesday, "Tues"},
@@ -20,13 +21,13 @@ public partial class SetClock : Control
 		{(int)Time.Weekday.Saturday, "Sat"},
 		{(int)Time.Weekday.Sunday, "Sun"}
 	};
-	private String season;
+	private string season;
 	private bool _isAm;
+	private bool _chooseWeather = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_testSceneData = GD.Load<TestSceneData>($"res://Scenes/SceneData/{GetOwner().GetOwner().GetChild(0).Name}Data.tres");
 		SetSeason();
 		SetWeather();
 	}
@@ -41,7 +42,7 @@ public partial class SetClock : Control
 		_dayText.Text = (String)_dayNames[Time.GetDateDictFromSystem()["weekday"]];
 	}
 
-	private String GetTime() {
+	private string GetTime() {
 		var systemTime = Time.GetTimeDictFromSystem(); // Get the system time
 		String stringTime = "xx:xx"; // String to store the rewritten time value
 		String stringMinute = (string)systemTime["minute"];
@@ -53,12 +54,20 @@ public partial class SetClock : Control
 		} else if ((int)systemTime["hour"] < 12) { // Otherwise, if it is a morning hour...
 			stringTime = $"0{systemTime["hour"]}:{stringMinute}"; // Set the time
 			_isAm = true; // It is morning
-		} else if ((int)systemTime["hour"] >= 12) { // Otherwise, if it is an afternoon hour...
+		} else if ((int)systemTime["hour"] > 12) { // Otherwise, if it is an afternoon hour...
 			stringTime = $"0{(int)systemTime["hour"]-12}:{stringMinute}"; // Set the time
 			_isAm = false; // It is afternoon
 		} else if ((int)systemTime["hour"] == 12) { // Otherwise, if it is the twelfth hour...
 			stringTime = $"12:{stringMinute}"; // Set the time
 			_isAm = false; // It is afternoon
+		}
+
+		// Determine the weather if six hours have passed
+		if (new Godot.Collections.Array{0, 6, 12, 18}.Contains((int)systemTime["hour"]) && _chooseWeather) {
+			DetermineWeather();
+			_chooseWeather = false;
+		} else {
+			if (!_chooseWeather) _chooseWeather = true;
 		}
 
 		return stringTime;
@@ -139,39 +148,85 @@ public partial class SetClock : Control
 	}
 
 	private void SetWeather() {
-		switch (_testSceneData.Weather)
-    {
-        case "sunny":
-            _weatherIcon.Modulate = new Color(245f / 255f, 255f / 255f, 0f / 255f);
-            break;
+		switch (_mainData.Weather)
+		{
+			case "sunny":
+				_weatherIcon.Modulate = new Color(245f / 255f, 255f / 255f, 0f / 255f);
+				break;
 
-        case "cloudy":
-            _weatherIcon.Modulate = new Color(250f / 255f, 240f / 255f, 200f / 255f);
-            break;
+			case "cloudy":
+				_weatherIcon.Modulate = new Color(250f / 255f, 240f / 255f, 200f / 255f);
+				break;
 
-        case "foggy":
-            _weatherIcon.Modulate = new Color(215f / 255f, 215f / 255f, 210f / 255f);
-            break;
+			case "foggy":
+				_weatherIcon.Modulate = new Color(215f / 255f, 215f / 255f, 210f / 255f);
+				break;
 
-        case "rain":
-            _weatherIcon.Modulate = new Color(10f / 255f, 60f / 255f, 245f / 255f);
-            break;
+			case "rain":
+				_weatherIcon.Modulate = new Color(10f / 255f, 60f / 255f, 245f / 255f);
+				break;
 
-        case "storm":
-            _weatherIcon.Modulate = new Color(80f / 255f, 95f / 255f, 135f / 255f);
-            break;
+			case "storm":
+				_weatherIcon.Modulate = new Color(80f / 255f, 95f / 255f, 135f / 255f);
+				break;
 
-        case "snow":
-            _weatherIcon.Modulate = new Color(40f / 255f, 235f / 255f, 255f / 255f);
-            break;
+			case "snow":
+				_weatherIcon.Modulate = new Color(40f / 255f, 235f / 255f, 255f / 255f);
+				break;
 
-        case "windy":
-            _weatherIcon.Modulate = new Color(160f / 255f, 200f / 255f, 205f / 255f);
-            break;
+			case "windy":
+				_weatherIcon.Modulate = new Color(160f / 255f, 200f / 255f, 205f / 255f);
+				break;
 
-        default:
-            _weatherIcon.Modulate = new Color(1f, 1f, 1f);
-            break;
-    }
+			default:
+				_weatherIcon.Modulate = new Color(1f, 1f, 1f);
+				break;
+		}
+	}
+
+	private void DetermineWeather() {
+		var summerChances = new Godot.Collections.Dictionary{
+			{"sunny", 75},
+			{"cloudy", 15},
+			{"rain", 8},
+			{"storm", 2}
+		};
+		var autumnChances = new Godot.Collections.Dictionary{
+			{"sunny", 45},
+			{"windy", 25},
+			{"cloudy", 10},
+			{"rain", 9},
+			{"foggy", 7},
+			{"storm", 5}
+		};
+		var winterChances = new Godot.Collections.Dictionary{
+			{"windy", 30},
+			{"snow", 30},
+			{"rain", 20},
+			{"foggy", 10},
+			{"storm", 10}
+		};
+		var springChances = new Godot.Collections.Dictionary{
+			{"sunny", 55},
+			{"windy", 15},
+			{"rain", 15},
+			{"cloudy", 10},
+			{"storm", 5}
+		};
+
+		var weatherChances = new Godot.Collections.Dictionary();
+		if (season == "summer") weatherChances = summerChances;
+		else if (season == "autumn") weatherChances = autumnChances;
+		else if (season == "winter") weatherChances = winterChances;
+		else if (season == "spring") weatherChances = springChances;
+
+		// Weighted weather probability (regardless of order)
+		var weatherChoice = GD.Randf() * 100; // Get a random floating point value between 0 and 100
+		foreach (var (weatherName, weatherChance) in weatherChances) { // For each chance...
+			weatherChoice -= (float)weatherChance; // Subtract it from the weather choice value
+			if (weatherChoice > 0) continue; // If that value is positive, then continue on to the next weather
+
+			_mainData.Weather = (string)weatherName; // Otherwise, set the weather
+		}
 	}
 }

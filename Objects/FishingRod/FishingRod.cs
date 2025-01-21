@@ -82,8 +82,7 @@ public partial class FishingRod : Node2D
 	private void OnHook() {
 		HookedFish = 0; // Reset the fish on the hook
 		
-		var sceneData = GD.Load<TestSceneData>($"res://Scenes/SceneData/{GetTree().Root.GetNode("main").GetChild(0).Name}Data.tres");
-		//var sceneFish = sceneData.PotentialFish;
+		var mainData = GD.Load<MainData>($"res://Scenes/SceneData/MainData.tres");
 		var potentialFish = new Godot.Collections.Array();
 		var availableFish = new Godot.Collections.Array();
 
@@ -101,7 +100,7 @@ public partial class FishingRod : Node2D
 			if (fishSource.Contains("all") || fishSource.Contains(_bobber.BobberSource)) { // If the bobber was cast in a place where the fish is available...
 				var fishClimates = (Godot.Collections.Array)fish["climate"]; // Get the fish's preferred climates
 
-				if (fishClimates.Contains("all") || fishClimates.Contains(sceneData.Weather)) { // If the scene's climate is suitable...
+				if (fishClimates.Contains("all") || fishClimates.Contains(mainData.Weather)) { // If the scene's climate is suitable...
 					var fishTimes = (Godot.Collections.Array)fish["hours"]; // Get the fish's active times
 					var realTime = Time.GetTimeDictFromSystem(); // Get the system time
 					var fishActive = false;
