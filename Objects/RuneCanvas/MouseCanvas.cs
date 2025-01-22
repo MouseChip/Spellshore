@@ -26,14 +26,14 @@ public partial class MouseCanvas : Node2D
 
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion mouseMotion) {
-			if (Input.IsMouseButtonPressed(MouseButton.Left) && _attackObject.CanDraw) {
+			if (Input.IsMouseButtonPressed(MouseButton.Left)/*  && _attackObject.CanDraw */) {
 				if (!_isDrawing) _clickPos.Clear();
 				_clickPos.Add(mouseMotion.Position); // If the mouse is being pressed, add the current position to the array
 				_isDrawing = true;
 				QueueRedraw(); // Queue a redraw
 			}
 		} else if (@event is InputEventMouseButton mouseButton) {
-			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsReleased() && _attackObject.CanDraw) {
+			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.IsReleased()/*  && _attackObject.CanDraw */) {
 				_isDrawing = false;
 				DetermineRune();
 			}
@@ -42,7 +42,7 @@ public partial class MouseCanvas : Node2D
 
     public override void _Draw()
     {
-		if (_attackObject.CanDraw) {
+		if (/* _attackObject.CanDraw */ true) {
 			foreach (Vector2 point in _clickPos) {
 				DrawCircle(point, 10, new Color(1, 0, 0));
 			}
@@ -54,43 +54,31 @@ public partial class MouseCanvas : Node2D
     }
 
 	private void DetermineRune() {
+		var debugPoints = new Godot.Collections.Array(); // MARK: DEBUGGING
+
 		GD.Print("Click positions: ", _clickPos);
 
 		if (_clickPos.Count < 3) return; // If there are fewer than 3 points, the path cannot be a rune
 
 		#region Get Turning Points
 
-		var relativePos = new Godot.Collections.Array(); // Stores the position of each point relative to the last
-		for (int i = 1; i < _clickPos.Count; i++) { // For each position that the mouse went over...
-			relativePos.Add((Vector2)_clickPos[i] - (Vector2)_clickPos[i-1]); // Add the difference between the current and last position to the array
-		}
-
-		GD.Print("Relative positions: ", relativePos);
-
-		var normalisedPos = new Godot.Collections.Array(); // Stores the normalised position of each relative position
-		foreach (Vector2 point in relativePos) normalisedPos.Add(point.Normalized()); // For each relative position, add the normalised vector to the array
-
-		GD.Print("Normalised positions: ", normalisedPos);
-
-		var dotProducts = new Godot.Collections.Array(); // Stores the dot product (how similar two vectors are with regard to direction) of each normalised position with the last
-		for (int i = 1; i < normalisedPos.Count; i++) dotProducts.Add(((Vector2)normalisedPos[i]).Dot((Vector2)normalisedPos[i-1])); // For each normalised position, add the dot product of the current and last normalised position to the array
-
-		GD.Print("Dot products: ", dotProducts);
-
 		var supTurningPoints = new Godot.Collections.Array{_clickPos[0]}; // Add the first position to the array}; // Stores the supposed turning points of the path
-		for (int i = 2; i < dotProducts.Count; i++) { // For every dot product...
-			// The loop starts at i = 2 because the first two dot products will 
-			// always be flawed (because they are dependent of the first normalised
-			// position, which will be incorrect as the first point will not have
-			// the correct direction)
-			var dotProduct = (float)dotProducts[i]; // Get the dot product
-			var roundProd = RoundToNearest(dotProduct, 0.2f); // Round the dot product to the nearest 0.2
-			var lastRoundProd = RoundToNearest((float)dotProducts[i-1], 0.2f); // Round the previous dot product to the nearest 0.2
+		for (int i = 1; i < _clickPos.Count-1; i++) {
+			Vector2 prevPoint = (Vector2)_clickPos[i-1];
+			Vector2 curPoint = (Vector2)_clickPos[i];
+			Vector2 nextPoint = (Vector2)_clickPos[i+1];
 
-			if (roundProd != lastRoundProd) supTurningPoints.Add(_clickPos[i+1]); // If the rounded dot product is different to the previous rounded dot product, add the turning position to the array
+			Vector2 firstDir = (curPoint-prevPoint).Normalized();
+			Vector2 secondDir = (nextPoint-curPoint).Normalized();
+
+			GD.Print($"{i}: {firstDir}, {secondDir}, {firstDir.DistanceTo(secondDir)}");
+
+			if (firstDir.DistanceTo(secondDir) > 0.4f) {
+				GD.Print("TURN POINT");
+				supTurningPoints.Add(curPoint);
+			}
 		}
 		supTurningPoints.Add(_clickPos[_clickPos.Count - 1]); // Add the last position to the array
-		GD.Print(_clickPos[_clickPos.Count - 1]);
 
 		GD.Print("Supposed turning points: ", supTurningPoints);
 
@@ -117,18 +105,15 @@ public partial class MouseCanvas : Node2D
 		
 		GD.Print("Unit points: ", unitPoints);
 
-		var debugPoints = new Godot.Collections.Array(); // MARK: DEBUGGING
-
-		var simpUnitPoints = new Godot.Collections.Array(); // Stores the simplified unit points of the path
+		var unitSimp1 = new Godot.Collections.Array(); // Stores the simplified unit points of the path
 		float distFactor = 0.2f; // The distance between two points to determine if they are the same turning point
 		for (int i = 0; i < unitPoints.Count; i++) {
 			if (i == unitPoints.Count - 1) { // If the current point is the last...
 				Vector2 prevPoint;
-				if (simpUnitPoints.Count > 0) prevPoint = (Vector2)simpUnitPoints[simpUnitPoints.Count - 1]; // Get the previous turning point
+				if (unitSimp1.Count > 0) prevPoint = (Vector2)unitSimp1[unitSimp1.Count - 1]; // Get the previous turning point
 				else prevPoint = (Vector2)unitPoints[0]; // Otherwise, get the first click position
 				if ((Vector2)unitPoints[i] != prevPoint) {
-					simpUnitPoints.Add(unitPoints[i]); // If the current turning point is different to the previous point, add the current point to the array
-					debugPoints.Add(supTurningPoints[i]); // MARK: DEBUGGING
+					unitSimp1.Add(unitPoints[i]); // If the current turning point is different to the previous point, add the current point to the array
 				}
 
 				break;
@@ -140,23 +125,43 @@ public partial class MouseCanvas : Node2D
 			float vecDist = firstPoint.DistanceTo(secondPoint);
 
 			if (vecDist < distFactor) { // If the distance between the two points is less than the distance factor (i.e. they are the same turning point)...
-				simpUnitPoints.Add(unitPoints[i+1]); // Add the second point to the array
-				debugPoints.Add(supTurningPoints[i+1]); // MARK: DEBUGGING
-				if (simpUnitPoints.Count >= 2) { // If there are more than two points in the array...
-					if ((Vector2)simpUnitPoints[simpUnitPoints.Count - 2] == (Vector2)unitPoints[i]) {
-						simpUnitPoints.RemoveAt(simpUnitPoints.Count - 2); // If the second-last point is the same as the current point (because it was added in a previous iteration), remove the repeat point
-						debugPoints.RemoveAt(debugPoints.Count - 2); // MARK: DEBUGGING
+				unitSimp1.Add(unitPoints[i+1]); // Add the second point to the array
+				if (unitSimp1.Count >= 2) { // If there are more than two points in the array...
+					if ((Vector2)unitSimp1[unitSimp1.Count - 2] == (Vector2)unitPoints[i]) {
+						unitSimp1.RemoveAt(unitSimp1.Count - 2); // If the second-last point is the same as the current point (because it was added in a previous iteration), remove the repeat point
 					}
 				}
 			} else { // Otherwise, if they are part of two separate turning points...
-				if (!simpUnitPoints.Contains(unitPoints[i])) {
-					simpUnitPoints.Add(unitPoints[i]); // If the current turning point is not already in the array, add it
-					debugPoints.Add(supTurningPoints[i]); // MARK: DEBUGGING
+				if (!unitSimp1.Contains(unitPoints[i])) {
+					unitSimp1.Add(unitPoints[i]); // If the current turning point is not already in the array, add it
 				}
 			}
 		}
 
-		GD.Print("Simplified unit points: ", simpUnitPoints);
+		var unitSimp2 = new Godot.Collections.Array{unitSimp1[0]};
+		debugPoints.Add((Vector2)unitSimp1[0]*scale + min);
+		for (int i = 1; i < unitSimp1.Count-1; i++) {
+			Vector2 prevPoint = (Vector2)unitSimp1[i-1];
+			Vector2 curPoint = (Vector2)unitSimp1[i];
+			Vector2 nextPoint = (Vector2)unitSimp1[i+1];
+
+			Vector2 firstDir = (curPoint-prevPoint).Normalized();
+			Vector2 secondDir = (nextPoint-curPoint).Normalized();
+
+			GD.Print($"{i}: {firstDir}, {secondDir}, {firstDir.DistanceTo(secondDir)}");
+
+			if (firstDir.DistanceTo(secondDir) < 0.4f) {
+				GD.Print("REMOVE");
+				continue;
+			}
+
+			unitSimp2.Add(curPoint);
+			debugPoints.Add(curPoint*scale + min); // MARK: DEBUGGING
+		}
+		unitSimp2.Add(unitSimp1[unitSimp1.Count - 1]);
+		debugPoints.Add((Vector2)unitSimp1[unitSimp1.Count - 1]*scale + min);
+
+		GD.Print("Simplified unit points: ", unitSimp2);
 
 		float smallestDist = float.MaxValue;
 
@@ -168,7 +173,7 @@ public partial class MouseCanvas : Node2D
 			Godot.Collections.Array keys = (Godot.Collections.Array)_runeData.RunesDict.Keys;
 			var rune = (Godot.Collections.Dictionary)_runeData.RunesDict[runeId];
 			var runeTemplate = (Godot.Collections.Array)rune["template"];
-			float shapeDistance = CompareShapes(simpUnitPoints, runeTemplate); // Compare the shape of the path to a test template
+			float shapeDistance = CompareShapes(unitSimp2, runeTemplate); // Compare the shape of the path to a test template
 
 			if (shapeDistance < smallestDist) {
 				smallestDist = shapeDistance;
@@ -188,7 +193,9 @@ public partial class MouseCanvas : Node2D
 		#endregion
 		
 		// MARK: DEBUGGING
-		_clickPos = _drawPos = new Godot.Collections.Array();
+		//_clickPos = _drawPos = new Godot.Collections.Array();
+		_drawPos = debugPoints;
+		QueueRedraw();
 	}
 
 	private float CompareShapes(Godot.Collections.Array source, Godot.Collections.Array template) {

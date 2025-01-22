@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c02061dqufq43"]
+[gd_scene load_steps=2 format=3 uid="uid://c02061dqufq43"]
 
-[ext_resource type="PackedScene" uid="uid://y21hvyats62f" path="res://Scenes/TestingScene1.tscn" id="1_egfk6"]
-[ext_resource type="PackedScene" uid="uid://dte36k112w24j" path="res://Objects/UI/HUD/BasicHud.tscn" id="2_mmem0"]
+[ext_resource type="PackedScene" uid="uid://dodqmw7jetbx1" path="res://Scenes/TestingScene3.tscn" id="2_5yfrt"]
 
 [node name="main" type="Node"]
 
-[node name="TestingScene1" parent="." instance=ExtResource("1_egfk6")]
+[node name="TestingScene3" parent="." instance=ExtResource("2_5yfrt")]
 
 [node name="HUDLayer" type="CanvasLayer" parent="."]
-
-[node name="BasicHUD" parent="HUDLayer" instance=ExtResource("2_mmem0")]
+visible = false
