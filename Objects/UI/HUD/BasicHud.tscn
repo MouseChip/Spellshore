@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dte36k112w24j"]
+[gd_scene load_steps=41 format=3 uid="uid://dte36k112w24j"]
 
 [ext_resource type="Script" path="res://Objects/UI/HUD/SetClock.cs" id="1_hy3cf"]
 [ext_resource type="Script" path="res://Objects/UI/HUD/BasicHud.cs" id="1_mcm2d"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://Objects/UI/Menus/Spellbind/SpellbindPageCont.cs" id="24_l15ba"]
 [ext_resource type="Resource" uid="uid://cejen0qflfqvi" path="res://Data/RuneData.tres" id="25_76vpn"]
 [ext_resource type="PackedScene" uid="uid://cieiipe6ephn5" path="res://Objects/UI/Menus/Spellbind/SpellbindRuneCont.tscn" id="27_ivxfo"]
+[ext_resource type="Script" path="res://Objects/UI/HUD/PlayerDebug.cs" id="28_ryeny"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5q7g6"]
 
@@ -249,7 +250,7 @@ texture = SubResource("CanvasTexture_kfb8c")
 layout_mode = 0
 offset_right = 1200.0
 offset_bottom = 40.0
-current_tab = 3
+current_tab = 2
 
 [node name="InvTabBar" type="TabBar" parent="PrimaryMenu/MenuTabCont"]
 visible = false
@@ -500,7 +501,6 @@ offset_bottom = 51.0
 texture = SubResource("CanvasTexture_pmbk2")
 
 [node name="SettingsTabBar" type="TabBar" parent="PrimaryMenu/MenuTabCont"]
-visible = false
 layout_mode = 2
 tab_alignment = 2
 metadata/_tab_index = 2
@@ -695,6 +695,7 @@ popup/item_1/text = "Windowed"
 popup/item_1/id = 1
 
 [node name="PauseTabBar" type="TabBar" parent="PrimaryMenu/MenuTabCont"]
+visible = false
 layout_mode = 2
 tab_alignment = 2
 metadata/_tab_index = 3
@@ -986,3 +987,80 @@ scale = Vector2(1, -1)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpellbindMenu/PageCont/RightPage/PageFlip"]
 position = Vector2(21, -21)
 polygon = PackedVector2Array(-31, -31, 31, 31, -31, 31)
+
+[node name="DebugMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -400.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PlayerDebug" type="Control" parent="DebugMenu" node_paths=PackedStringArray("_catCol", "_robeCol", "_hatOptions")]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("28_ryeny")
+_catCol = NodePath("CatColBut")
+_robeCol = NodePath("FavColBut")
+_hatOptions = NodePath("HatOpt")
+
+[node name="Label" type="Label" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Cat Customisation"
+
+[node name="CatCol" type="Label" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_top = 19.0
+offset_right = 84.0
+offset_bottom = 42.0
+text = "Cat colour:"
+
+[node name="CatColBut" type="ColorPickerButton" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 29.0
+offset_right = 97.0
+offset_bottom = 37.0
+
+[node name="FavCol" type="Label" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_top = 43.0
+offset_right = 135.0
+offset_bottom = 66.0
+text = "Favourite colour: "
+
+[node name="FavColBut" type="ColorPickerButton" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 51.0
+offset_right = 146.0
+offset_bottom = 59.0
+
+[node name="Hat" type="Label" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 135.0
+offset_bottom = 95.0
+text = "Hat: "
+
+[node name="HatOpt" type="OptionButton" parent="DebugMenu/PlayerDebug"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 69.0
+offset_right = 143.0
+offset_bottom = 100.0
+selected = 0
+item_count = 3
+popup/item_0/text = "Wizard Hat"
+popup/item_1/text = "Propeller Hat"
+popup/item_1/id = 1
+popup/item_2/text = "Sun Hat"
+popup/item_2/id = 2

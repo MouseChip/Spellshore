@@ -14,6 +14,7 @@ public partial class CatchingFish : RigidBody2D
 	private PlayerData _playerData = GD.Load<PlayerData>("res://Objects/Player/PlayerData.tres");
 	private FishData _fishData = GD.Load<FishData>("res://Data/FishData.tres");
 	private RuneData _runeData = GD.Load<RuneData>("res://Data/RuneData.tres");
+	private AttackData _attackData = GD.Load<AttackData>("res://Data/AttackData.tres");
 	private StaticBody2D _desPointBox;
 	private int _fishId = 0;
 	private int _fishDir = 0;
@@ -144,13 +145,7 @@ public partial class CatchingFish : RigidBody2D
 				GD.Print("Attack!");
 				string attackName = (string)((Godot.Collections.Array)((Godot.Collections.Dictionary)_fishData.FishDict[_fishId])["attacks"]).PickRandom(); // Choose a random attack from the fish's list of attacks
 
-				var fishRunes = new Godot.Collections.Array();
-				foreach (int rune in _runeData.RunesDict.Keys) { // For each rune...
-					var dictRune = (Godot.Collections.Dictionary)_runeData.RunesDict[rune]; // Store that rune
-					var runeAttacks = (Godot.Collections.Array)dictRune["attacks"];  // Get the attacks that the rune defends against
-					if (runeAttacks.Contains(attackName) && !fishRunes.Contains(rune)) fishRunes.Add(rune); // If the rune defends against the fish attack, store it
-				}
-				int runeId = (int)fishRunes.PickRandom(); // Choose a random rune from the list of runes that the fish can defend against
+				int runeId = (int)((Godot.Collections.Array)((Godot.Collections.Dictionary)_attackData.AttackDict[attackName])["runes"]).PickRandom(); // Choose a random rune that defends against the chosen attack
 
 				GD.Print($"Fish is attacking with {attackName} and can be defended against with {runeId}");
 
