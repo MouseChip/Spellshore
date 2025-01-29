@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://btttwdyw0leo8"]
-
-[ext_resource type="Script" path="res://Assets/Graphics/SceneData/TestScene1Data.cs" id="1_3sm60"]
-
-[resource]
-script = ExtResource("1_3sm60")

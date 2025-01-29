@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ped84lhv167"]
+[gd_scene load_steps=14 format=3 uid="uid://ped84lhv167"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerMovement.cs" id="1_yi4wh"]
 [ext_resource type="Texture2D" uid="uid://1byync2rsg4h" path="res://Assets/Graphics/Avatar/catBase.png" id="2_a7k2x"]
@@ -7,19 +7,25 @@
 [ext_resource type="Texture2D" uid="uid://dbbtaygbc1nci" path="res://Assets/Graphics/Avatar/Clothing/Hats/WizardHat.png" id="4_1hy8g"]
 [ext_resource type="Script" path="res://Objects/Player/VisualiseCast.cs" id="4_o05gt"]
 [ext_resource type="Texture2D" uid="uid://3niqvn3a44uy" path="res://Assets/Graphics/Avatar/catPaw.png" id="5_0g5xe"]
+[ext_resource type="Texture2D" uid="uid://bmwq312ico3os" path="res://Assets/Graphics/UI/Player/castPower.png" id="7_0fitj"]
+[ext_resource type="Texture2D" uid="uid://b4q6cv7ntaugi" path="res://Assets/Graphics/UI/Player/castPowerFill.png" id="8_ip4hl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi0pr"]
 size = Vector2(32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btbfq"]
-bg_color = Color(0.982343, 0.982342, 0.982342, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8g6ro"]
+texture = ExtResource("7_0fitj")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u23db"]
-bg_color = Color(0.269027, 0.698483, 0.416805, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fy3gk"]
+texture = ExtResource("8_ip4hl")
+texture_margin_bottom = 4.0
+axis_stretch_vertical = 1
 
 [sub_resource type="Theme" id="Theme_0cdc3"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_btbfq")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_u23db")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_8g6ro")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_fy3gk")
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_playerBase", "_playerRobe", "_playerHat", "_playerPaws")]
 z_index = 10
@@ -73,15 +79,17 @@ offset_right = 31.0
 offset_bottom = 30.0
 
 [node name="CastPower" type="ProgressBar" parent="Control"]
+texture_filter = 1
+clip_contents = true
 layout_mode = 0
-offset_left = 6.0
-offset_top = 45.0
-offset_right = 36.0
-offset_bottom = 50.0
-rotation = -1.5708
+offset_left = 4.0
+offset_top = 11.0
+offset_right = 11.0
+offset_bottom = 45.0
 theme = SubResource("Theme_0cdc3")
 min_value = -1.0
 max_value = 1.0
-value = -1.0
+value = 1.0
+fill_mode = 3
 show_percentage = false
 script = ExtResource("4_o05gt")

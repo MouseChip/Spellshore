@@ -1014,6 +1014,7 @@ _hatOptions = NodePath("HatOpt")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+mouse_filter = 1
 text = "Cat Customisation"
 
 [node name="CatCol" type="Label" parent="DebugMenu/PlayerDebug"]
@@ -1021,34 +1022,37 @@ layout_mode = 0
 offset_top = 19.0
 offset_right = 84.0
 offset_bottom = 42.0
+mouse_filter = 1
 text = "Cat colour:"
 
 [node name="CatColBut" type="ColorPickerButton" parent="DebugMenu/PlayerDebug"]
 layout_mode = 0
-offset_left = 89.0
-offset_top = 29.0
-offset_right = 97.0
-offset_bottom = 37.0
+offset_left = 87.0
+offset_top = 22.0
+offset_right = 107.0
+offset_bottom = 42.0
 
 [node name="FavCol" type="Label" parent="DebugMenu/PlayerDebug"]
 layout_mode = 0
 offset_top = 43.0
 offset_right = 135.0
 offset_bottom = 66.0
+mouse_filter = 1
 text = "Favourite colour: "
 
 [node name="FavColBut" type="ColorPickerButton" parent="DebugMenu/PlayerDebug"]
 layout_mode = 0
-offset_left = 138.0
-offset_top = 51.0
-offset_right = 146.0
-offset_bottom = 59.0
+offset_left = 134.0
+offset_top = 47.0
+offset_right = 154.0
+offset_bottom = 67.0
 
 [node name="Hat" type="Label" parent="DebugMenu/PlayerDebug"]
 layout_mode = 0
 offset_top = 72.0
 offset_right = 135.0
 offset_bottom = 95.0
+mouse_filter = 1
 text = "Hat: "
 
 [node name="HatOpt" type="OptionButton" parent="DebugMenu/PlayerDebug"]
